@@ -1,0 +1,6 @@
+of latest files added (style.css, profile.php, header.php):
+
+style.css functioning correctly
+
+profile.php - breaks website
+header.php - breaks website

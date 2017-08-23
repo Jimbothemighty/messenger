@@ -1,0 +1,352 @@
+/* ------------------------------------------------ CSS TABS ------------------------------------------------- */ 
+
+.profilebox {
+    width: 100%;        
+    min-width: 350px
+    max-width: 1500px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0;
+    background-color: hotpink;
+    padding-top: 50px;
+    box-sizing: border-box;
+}
+
+.ccContent {        
+    min-width: 350px;
+    max-width: 1500px;
+    //height: 100%;
+    width: 100%;
+    border: 1px solid #DDD;
+    background-color: bisque;
+    margin: 0 auto;
+    padding: 0;
+    padding-top: 50px;
+    height: calc(100% - 50px); */        
+    height: -o-calc(100% - 50px); */         /* opera */
+    height: -webkit-calc(100% - 50px); */         /* google, safari */
+    height: -moz-calc(100% - 50px); */        /* firefox */
+}
+
+.tab-content section {
+    clear: both;
+    z-index: 2;
+    }
+    
+input[name="tabs"] {
+    clear: both;
+    display: none;
+}
+
+label {
+    display: block;
+    float: left;
+    width: 33.3%;
+    color: #757575;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    background-color: #f0f0f0;
+    box-sizing: border-box;
+    min-width: 116px;
+    height: 50px;
+    vertical-align: middle;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    box-sizing: border-box;
+}
+
+#tab1, #tab2, #tab3 {
+    height: 100px;
+}
+
+
+section {
+    display: none;
+    background-color:aqua;
+    height: 100%;
+}
+    
+#ccTab1:checked ~ #content1,
+#ccTab2:checked ~ #content2,
+#ccTab3:checked ~ #content3 {
+    display: block;
+}
+    
+#content1, #content2, #content3 {
+    width: 100%;
+    height: 99%;
+    //padding-top: -100px;
+    box-sizing: border-box;
+}
+    
+.ccContent [id^="ccTab"]:checked + label {
+  background: #fff;
+  //box-shadow: inset 0 3px #0CE;
+}
+
+/* --------------------------------------------- END OF CSS TABS --------------------------------------------- */
+
+/* -----------------------------------------------------|----------------------------------------------------- */
+
+.profile_wrapper {
+    //background-image: url('http://localhost/wp-content/themes/BRWNETheme/assets/images/digital_space_universe_small.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    //height: 100%;
+    //margin: 0 auto;
+    //margin-top: -50px; /* this is only needed when logged into wordpress as WP HEADER eff's up layout */
+    //top: 0px;
+    padding: 0;
+    min-width: 350px;
+    background-color: dodgerblue;
+    overflow: auto;
+}
+
+.userDetails {
+    min-height: 99.9%;
+    width: 100%;
+    background-color: #666;
+    color: #FFF;
+    float: left;
+    padding: 20px;
+    text-align: left;
+    min-width: 350px;
+    float: left;
+    box-sizing: border-box;
+}
+
+.profileInformation {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid #FFF;
+    margin-top: 20px;
+}
+
+.profilePicture {
+    order 1;
+    line-height: 100%;
+}
+
+.profilePicture img {
+    width: 170px;
+    height: 100%;
+    line-height: 100%;
+}
+
+.profileText {
+    order 2;
+    padding: 20px;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+.post_form textarea {
+    width: 100%;
+    height: 70px;
+    font-family: 'Open Sans', serif;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+
+.outputLog_profile {
+    width: 100%;
+    color: green;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For desktop pcs and laptops : */
+    [class="profile_wrapper"] { overflow: hidden; }
+	[class*="userDetails"] {  }
+    [class="profileInformation"] { flex-direction: column; }
+}
+
+
+/* ------------------------------------------- CONTACTS TAB STYLE ---------------------------------------------- */
+
+.userResult {
+    height: 50px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: bisque;
+    border: 1px solid #999;
+}
+
+.userResult input[type="submit"] {
+    height: 50px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: bisque;
+    border: 1px solid #999;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* --------------------------------------- END OF CONTACTS TAB STYLE ------------------------------------------- */
+
+/* ------------------------------------------ MESSENGER TAB STYLE ---------------------------------------------- */
+
+.messengerDetails {
+    background-color: #666;
+    color: #FFF;
+    float: left;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    height: 100vh;
+    min-width: 350px;
+    box-sizing: border-box;   
+}
+
+.messengerscript {
+flex-shrink: 1;
+flex-grow: 1;
+order: 1;
+box-sizing: border-box;
+min-height: 100px;
+height: 100%;
+}
+
+#out {
+    
+}
+
+.messenger {
+//position: relative;
+//bottom: 0;
+height: 200px;
+order: 2;
+flex-shrink: 0;
+flex-grow: 0;
+background-color: #444;
+padding-top: 10px;
+//width: 100%;
+//bottom: 0;
+//position: absolute;
+    /* these commented out ones are me wondering if I can make it a sticky footer.
+    However, it effs with the dynamic height of the messenger system */
+}
+
+.messagehistory {
+overflow-y: scroll;
+box-sizing: border-box;
+padding-left: 20px;
+padding-right: 20px;
+//padding-bottom: 40px;
+//min-height: 200px;
+//max-height: 400px;
+}
+
+.message {
+display: flex;
+flex-direction: row;
+align-items: flex-end;
+width: 100%;
+}
+
+.recipientInput {
+min-width: 100px;
+max-width: 200px;
+float: left;
+}
+
+.message_form input[type="submit"] {
+min-width: 100px;
+max-width: 400px;
+float: right;
+}
+
+.message_form textarea {
+min-width: 100%;
+width: 100%;
+background-color: #EEE;
+color: #444;
+height: 70px;
+padding: 10px;
+box-sizing: border-box;
+font-family: 'Open Sans', serif;
+line-height: 160%;
+}
+
+.message_form input[type="text"] {
+min-width: 100px;
+max-width: 400px;
+}
+
+.conversationInfo {
+}
+
+.messageHeader {
+width: 100%;
+text-transform: uppercase;
+font-variant: small-caps;
+font-weight: bold;
+font-style: italic;
+box-sizing: border-box;
+padding: 20px;
+//margin-bottom: 20px;
+border-bottom: 1px solid white;
+}
+
+.messageProfilePic {
+order: 1;
+padding: 5px;
+border-radius: 50px;
+margin: 5px;
+}
+
+.messageProfilePic img {
+width: 20px;
+height: 20px;
+}
+
+.messageSender {
+order: 2;
+padding: 5px;
+border-radius: 5px;
+margin: 5px;
+//width: 135px;
+}
+
+.messageText {
+order: 3;
+//min-width: 300px;
+//max-width: 600px;
+//background-color: #EEE;
+background-color: deepskyblue;
+padding: 5px;
+border-radius: 5px;
+margin: 5px;
+box-shadow: 0px 0px 10px #000;
+}
+
+.messageDate {
+order: 4;
+padding: 5px;
+border-radius: 5px;
+margin: 5px;
+font-size: 12px;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For desktop pcs and laptops : */
+    [class*="conversationInfo"] { display: none; }
+    /*[class*="messagehistory"] { padding-left: 5px; padding-right: 5px; }*/
+}

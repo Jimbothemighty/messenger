@@ -1,0 +1,642 @@
+/*
+Theme Name: BRWNE Theme
+Theme URI: https://better-planet.org/
+Author: Brownie
+Author URI: https://better-planet.org/
+Description: Test version
+Version: 1.0
+License: 
+License URI: 
+Text Domain: brwnetheme
+Tags: one-column, two-columns, right-sidebar, flexible-header
+*/
+
+/*
+TODO - currently parallax only working when .js is inlined. (I have created and linked a parallax.js file, but for some reason it currently is not working
+TODO - need to put in scroll buttons but can't make jQuery / js work for me so far! Currently just using html go to buttons hooked to css div id's (e.g. #middle)
+*/
+
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	//vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+/* styling general elements*/
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+html,body {
+width: 100%;
+height: 100%;
+margin: 0 auto;
+padding: 0;
+min-width: 350px;
+}
+
+body {
+color: #333;
+font-family: 'Open Sans', serif;
+line-height: 160%;
+//padding-top: 50px;
+}
+
+.buffer {
+width: 100%;
+height: 50px;
+}
+
+h1 {
+font-size: 2.5em;
+line-height: normal;
+color: #333;
+}
+
+h2 {
+font-size: 1.5em;
+line-height: normal;
+color: #333;
+}
+
+p {
+box-sizing: border-box;
+margin: 20px;
+color: #333;
+}
+
+/* styling tables */
+table, th, td {
+border: 3px solid #CCC;
+}
+
+table {
+width: 90%;
+margin: 10px;
+text-align: center;
+}
+
+th, td {
+height: 50%;
+margin: 10px;
+}
+
+.header {
+background-color: #00cc00;
+width: 100%;
+padding-top: 20px;
+padding-bottom: 20px;
+box-sizing: border-box;
+margin-top: 50px; /* HACK used for ensuring the header is below the menu. For some reason its randomly stopped being needed. */ 
+border-bottom: 1px solid #000000;
+}
+
+#middle {
+/* used for go-to button */
+}
+
+.main_and_sidebar {
+width: 100%;
+display: flex;
+flex-direction: row;
+margin: 0 auto;
+min-height: 500px;
+box-sizing: border-box;
+}
+
+/********************************* styling parallax plugin *******************************/
+
+.widget_brwne_parallax_plugin { height: 100%; }
+#brwne_parallax_plugin-2 { height: 100%; }
+.parallax-container {
+    /* background-image: url("http://better-planet.org/wp-content/themes/BRWNETheme/assets/images/digital_space_universe_4k_8k-wide.jpg"); */
+
+    /* Full height */
+    height: 100%;
+    width: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    //z-index: 5;
+    //position: absolute;
+}
+
+.parallax-container-old {
+//position: absolute;
+position: relative; /* original working value */
+//height: 100%;
+height: 1100px;  /* original working value */
+width: 100%; /* original working value */
+//background-color: green;
+    margin: 0 auto;
+    padding: 0;
+//z-index: 5;
+  //  min-height: 100%;
+}
+
+.parallax-old {
+position: absolute;
+height: 200%;
+width: 100%;
+z-index: -1;
+box-sizing: border-box;
+}
+
+.parallax-container-old {
+    background-image: url("http://localhost/wp-content/themes/BRWNETheme/assets/images/digital_space_universe_4k_8k-wide.jpg");
+
+    /* Full height */
+    height: 100%;
+    width: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    //z-index: 5;
+    //position: absolute;
+}
+
+.parallax2 {
+    /* The image used */
+    background-image: url('http://localhost/wp-content/themes/BRWNETheme/assets/images/digital_space_universe_4k_8k-wide.jpg');
+
+    /* Full height */
+    height: 100%;
+
+    /* Create the parallax scrolling effect */
+background-attachment: fixed;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+margin-top: -50px;
+//background-color: deepskyblue;
+min-width: 350px;
+}
+
+.parallax-container {
+width: 100%;
+height: 100%;
+display: flex;
+flex-direction: column;
+}
+
+.parallax-title-text {
+width: 100%;
+height: 30%;
+padding: 15px;
+margin-top: 50px;
+font-size: 2em;
+font-size: 4vw;
+color: #CCC;
+line-height: 0.8;
+box-sizing: border-box;
+z-index: 1;
+order: 1;
+overflow:hidden;
+//border: 1px solid black;
+//background-color: deeppink;
+flex-grow: 0;
+min-width: 350px;
+min-height: 150px;
+}
+
+.parallax-title-text p {
+text-decoration: none;
+color: #CCC;
+line-height: normal;
+}
+
+.parallax-title-text a {
+text-decoration: none;
+color: #CCC;
+line-height: normal;
+}
+
+.parallax-title-text h1 {
+text-decoration: none;
+color: #CCC;
+line-height: 0.8;
+}
+
+.parallax-title-text a:visited {
+text-decoration: none;
+color: #CCC;
+line-height: normal;   
+}
+
+.parallax-surface-text {
+width: 100%;
+height: 70%;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+box-sizing: border-box;
+order: 2;
+//border: 1px solid black;
+//background-color: limegreen;
+flex-grow: 1;
+min-width: 350px;
+}
+
+.parallax-button {
+border: 5px solid #CCC;
+width: 20%;
+min-width: 150px;
+max-width: 300px;
+height: 40px;
+flex: none;
+margin: 20px;
+position: relative;
+box-sizing: border-box;
+box-shadow: 0px 0px 30px #111; text-shadow: 0px 0px 5px #111;
+}
+
+.parallax-button:hover {
+transition: all 0.5s;
+transform: scale(1.05);
+}
+
+.pxbutton1 { order: 1; }
+.pxbutton2 { order: 2; }
+
+.pxtextbox {
+position: absolute;
+width:100%;
+top: 50%;
+text-align: center;
+transform: translate(0, -50%);
+color: #CCC;
+font-weight: bold;
+box-sizing: border-box;
+}
+
+#scrollButton {
+color: white;
+//background-color: #999;
+text-align: center;
+width: 100%;
+margin-left: auto;
+margin-right: auto;
+padding-top: 10px;
+vertical-align: middle;
+padding-bottom: 10px; auto;
+z-index:1;
+font-size: 1.5em;
+font-weight: bold;
+font-variant: small-caps;
+background-color: rgb(0,0,0 , 0.3);
+order: 3;
+//background-color: yellow;
+min-width: 350px;
+}
+
+.main-content {
+order: 1;
+flex-grow: 2;
+flex-shrink: 1;
+}
+
+.col-blog-post {
+box-sizing: border-box;
+background-color: #bcd6ff;
+}
+
+.blog-post {
+box-sizing: border-box;
+background-color: #f4f7fc;
+padding: 20px;
+}
+
+.col-sidebar {
+box-sizing: border-box;
+background-color: #333333;
+order: 2;
+flex-grow: 1;
+flex-shrink: 0;
+padding: 20px;
+max-width: 400px;
+min-width: 300px;
+color: #CCC;
+display: flex;
+justify-content: center;
+}
+
+#alert {
+width: 100%;
+height: 30px;
+color: white;
+background-color: red;
+padding: 1px;
+border-radius: 5px;
+display: none;
+}
+
+/********************************* styling circle text plugin *******************************/
+/* (See bottom of file for associated media queries) */
+
+.circle-container {
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+background-color: #bcd6ff;
+//width: 100%;
+}
+
+.circle-text-box {
+margin: 10px;
+min-height: 170px;
+display: flex;
+flex-direction: row;
+align-items: center;
+}
+
+.cir-t-box1 { order: 1; }
+.cir-t-box2 { order: 2; }
+.cir-t-box3 { order: 3; }
+
+.circular-block {
+// float: left;      /* makes no difference when parent div is flexboxed */
+border-radius: 50%;
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+width: 150px;
+height: 150px;
+border: 3px solid #000;
+margin: 10px;
+order: 1;
+flex-shrink: 0;
+}
+
+.text-block {
+margin: 10px;
+order: 2;
+//flex-shrink: 0;
+//flex-grow: 0;
+}
+
+/********************************* styling image plugin *******************************/
+/* (See bottom of file for associated media queries) */
+
+.imageWidgetContainer {
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+//background-color: #bcd6ff;
+//width: 100%;
+margin-top: 20px;
+margin-bottom: 20px;
+}
+
+.imageWidgetContainer a {
+text-decoration: none;
+    color: #FFF;
+    font-size: 1.2em;
+    font-weight: bold;
+    font-variant: small-caps;
+    //font-style: italic;
+    text-shadow: 0px 0px 10px #333;
+}
+
+.imageWidget {
+height: 200px;
+width: 400px;
+//min-width: 300px;
+//background-color: aquamarine;
+overflow: hidden;
+box-sizing: border-box;
+margin-top: 20px;
+margin-bottom: 20px;
+}
+
+.imageWidgetBg {
+height: 200px;
+width: 400px;
+//min-width: 300px;
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+box-sizing: border-box;
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
+text-transform: uppercase;
+z-index: 3;
+color: white;
+text-decoration: none;
+opacity: 0.9;
+}
+
+.imageWidgetBg:hover {
+transition: all 0.3s;
+transform: scale(1.2);
+font-size: 1.5em;
+}
+
+.imageWidget:hover {
+box-shadow: 0 0 20px 1px rgba(0, 140, 186, 0.5);
+}
+
+/********************************* styling footer *******************************/
+
+.footer {
+box-sizing: border-box;
+position: relative;
+bottom: 0;
+left: 0;
+right: 0;
+width: 100%;
+border-top: 1px solid #000000;
+background-color: #666;
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+line-height: normal;
+min-width: 350px;
+}
+
+.footer p, a, h1, h2, h3, h4, h5, h, li {
+color: #DDD;
+}
+
+.footer p, a, li {
+line-height: 140%;
+font-size: 1.2em;
+}
+
+.footer-block {
+box-sizing: border-box;
+width: 400px;
+background-color: #666666;
+min-height: 100px;
+padding: 5px;
+}
+
+.ftblock1 { order: 1; }
+.ftblock2 { order: 2; }
+.ftblock3 { order: 3; }
+
+/********************************* styling wp top menu *******************************/
+
+#logout {
+    display: block;
+    height: 100px;
+    width: 100px;
+    background-color: dodgerblue;
+}
+
+ /* Add a black background color to the top navigation */
+.topNavMenu {
+    background-color: #333;
+    overflow: hidden;
+	//margin: 0 auto;
+	//padding: 0;
+    position: fixed;
+    width: 100%;
+    //min-height: 50px;
+    top: 0;
+    z-index: 2;
+    min-width: 350px;
+}
+
+/* Style the links inside the navigation bar */
+.topNavMenu a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topNavMenu a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Hide the link that should open and close the topNavMenu on small screens */
+.topNavMenu .icon {
+    display: none;
+}
+
+ /* When the screen is less than 768 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topNavMenu (.icon) */
+@media screen and (max-width: 768px) {
+  .topNavMenu a:not(:first-child) {display: none;}
+  .topNavMenu a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+ /* When the screen is less than 768 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topNavMenu (.icon) */
+@media screen and (max-width: 768px) {
+  .menu a {display: none;}
+  .menu a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+/* The "mobile" class is added to the topNavMenu with JavaScript when the user clicks on the icon. This class makes the topNavMenu look good on small screens (display the links vertically instead of horizontally) */
+@media screen and (max-width: 768px) {
+  .topNavMenu.mobile {position: fixed;}
+  .topNavMenu.mobile a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topNavMenu.mobile a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+
+
+@media only screen and (max-width: 1600px) {
+    /* For mobile phones: */
+	[class*="circle-text-box"] { flex-direction: column; justify-content: space-around; }
+	[class*="text-block"] { width: 100%; height: 100%; text-align: center; }
+    [class="main_and_sidebar"] { flex-direction: column; }
+    [class*="col-"] { width: 100%; }
+	[class*="col-sidebar"] { position: relative; float: none; max-width: 100%;}
+}
+
+@media only screen and (max-width: 1200px) {
+    /* For mobile phones: */
+    [class*="imageWidgetContainer"] { flex-direction: column; justify-content: space-around; }
+    [class="imageWidget"] { width: 100%; }
+    [class="imageWidgetBg"] { width: 100%; }
+}
+
+@media only screen and (max-width: 1000px) {
+    /* For mobile phones: */
+	[class*="circle-container"] { flex-direction: column; }
+	[class*="circle-text-box"] { flex-direction: row; }
+	[class*="text-block"] { text-align: left; }
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+	[class="body"] { flex-direction: column; }
+	[class="footer"] { flex-direction: column; width: 100%; min-width: 350px; }
+    [class*="footer-block"] { width: 100%; min-height: 50px; min-width: 350px; }
+	[class="parallax-surface-text"] { flex-direction: column; }
+	/*[id="scrollButton"] { width: 20%; height: 20%; }*/
+}
+
+@media only screen and (min-width: 768px) {
+    /* For desktop pcs and laptops : */
+	[class="parallax-title-text"] { font-size: 2em; }
+	[class="parallax2"] { background-image: url('http://localhost/wp-content/themes/BRWNETheme/assets/images/digital_space_universe_small.jpg'); }
+	/*[id="scrollButton"] { width: 20%; height: 20%; }*/
+}

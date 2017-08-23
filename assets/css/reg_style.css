@@ -1,0 +1,153 @@
+.wrapper {
+    //background-image: url('http://localhost/wp-content/themes/BRWNETheme/assets/images/digital_space_universe_small.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    background-color: dodgerblue;
+    min-width: 350px;
+}
+
+.innerWrapper {
+    width: auto;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* bring your own prefixes */
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    min-width: 350px;
+}
+
+.innerWrapper h2 {
+    color: #FFF;
+    font-size: 1.5em;
+    font-weight: bold;
+    font-variant: small-caps;
+    font-style: italic;
+    text-shadow: 0px 0px 10px #000;
+}
+
+#loginDiv, #registerDiv {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: auto;
+    //flex-shrink: 0;
+    min-width: 350px;
+}
+
+#loginTag {}
+#registerTag {}
+
+#loginDiv { order: 2; }
+#registerDiv { order: 3; }
+
+.lineBreak {
+    order: 2;
+    width: 0px;
+    height: 600px;
+    border: 2px solid #DDD;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 10px #000;
+}
+
+
+
+input[type="text"], input[type="email"], input[type="password"], input[type="button"] {
+    background: transparent;
+    border: 3px solid #DDD;
+    width: 30%;
+    max-width: 400px;
+    min-width: 300px;
+    height: 15%;
+    max-height: 50px;
+    min-height: 25px;
+    padding: 5px;
+    padding-left: 20px;
+    margin: 5px;
+    color: #FFF;
+    font-size: 1.2em;
+    //font-weight: bold;
+    //font-variant: small-caps;
+    font-style: italic;
+    text-shadow: 0px 0px 10px #000;
+    box-shadow: 0px 0px 2px #000;
+}
+
+input[type="submit"] {
+    background: transparent;
+    border: 4px solid #DDD;
+    width: 140px;
+    height: 50px;
+    padding: 5px;
+    margin: 5px;
+    color: #FFF;
+    font-size: 1.5em;
+    font-weight: bold;
+    font-variant: small-caps;
+    font-style: italic;
+    text-shadow: 0px 0px 10px #000;
+    box-shadow: 0px 0px 10px #000;
+}
+
+.outputLog {
+    width: 40%;
+    min-width: 300px;
+    max-width: 500px;
+    background-color: #EEE;
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    box-shadow: 0px 0px 10px #000;
+}
+
+
+@media only screen and (max-width: 1000px) {
+    /* For mobile phones: */
+    [class="lineBreak"] { width: 30%; height: 0px; min-width: 300px; }
+    [class="innerWrapper"] { flex-direction: column; align-items: center; height: auto; }
+    [id="loginDiv"] {margin-top: 20px; margin-bottom: 20px; }
+    [id="registerDiv"] {margin-top: 20px; margin-bottom: 20px; }
+    [class="innerWrapper"] { position: relative; top: auto; transform: translate(-50%,0px); -webkit-transform: translate(-50%,0px); -ms-transform: translate(-50%,0px); height: auto;}
+    [class="wrapper"] { height: auto; }
+}
+
+
+
+
+@media only screen and (max-height: 950px) {
+    /* For mobile phones: */
+    [class="innerWrapper"] { position: relative; top: auto; transform: translate(-50%,0px); -webkit-transform: translate(-50%,0px); -ms-transform: translate(-50%,0px); height: auto;}
+    [id="loginDiv"] {margin-top: 20px; margin-bottom: 20px; }
+    [id="registerDiv"] {margin-top: 20px; margin-bottom: 20px; }
+    [class="wrapper"] { height: auto; }
+}
+
+
+    <br><br>
+    <?php if(in_array('<b><p style="color: green;">CONNECTION TO DB: soc_net ESTABLISHED</p></b>', $conn_array)) {
+    echo '<b><p class="outputLog" style="color: green;">CONNECTION TO DB: soc_net ESTABLISHED</p></b><br>';
+    }
+    ?>
+    <br><br>
+
+@media only screen and (min-width: 768px) {
+    /* For desktop pcs and laptops : */
+	//[class="wrapper"] { background-image: url('http://www.better-planet.org/wp-content/uploads/2017/08/digital_space_universe_small.jpg'); }
+}
