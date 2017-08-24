@@ -8,23 +8,6 @@
 
     $connection = mysqli_connect("localhost", "root", "root", "soc_net"); // connection variable
     $conn_array = array();
-
-    if(mysqli_connect_errno())
-    {
-        //echo "Failed to connect: " . mysqli_connect_errno();
-    } else { array_push($conn_array, '<b><p style="color: green;">CONNECTION TO DB: soc_net ESTABLISHED</p></b>'); }
-
-    if(isset($_SESSION['username'])) {
-        $userLoggedIn = $_SESSION['username'];
-        $userDetails = mysqli_query($connection, "SELECT * FROM users WHERE username='$userLoggedIn'");
-        $user = mysqli_fetch_assoc($userDetails);
-
-        /* TODO - it is recommended to not use mysqli_fetch_array. Instead to use mysqli_fetch_assoc or mysqli_fetch_row as this have better performance and are tigher in their usage as the fetch_array one is sort of a combination of the other two functions - so more cumbersome, but more flexible in how you can access the data it returns (i.e. by either a string or numeric index).
-
-        according to websites I have looked at - fetch_assoc has the best speed
-
-        fetch_assoc uses a string index (name of column in SQL table)*/
-    }
 ?>
 
 
@@ -65,18 +48,20 @@
             
                 if ($user_array['id'] != NULL)  {
                 ?>
+
                     <script>
+                    // TODO - move script to messenger.js
+                    // TODO - this is a bit hacky. There's something wrong with the php variable I'm submitting as a string. For some reason it has a space " " at the start. But if I delete it, I get an error. Currently I'm deleting the space in php in messageAjax.php, which is where this is submitting to. 
                     var inputElement = document.createElement('input');
-                    inputElement.type = "button"
+                    inputElement.type = "button";
+                    inputElement.value = '\ <?php echo $userSelected; ?>';
                     inputElement.addEventListener('click', function(){
                         chatWithUser('\ <?php echo $userSelected; ?>');
                     });
 
-                    document.body.appendChild(inputElement);
+                    document.getElementById("userList").appendChild(inputElement);
                     </script>
-                                <!--
-                                <input id='userToChatWith' type='submit' name='selected_recipient' placeholder='Recipient username' onclick='chatWithUser('\'<?php echo $userSelected; ?>\'');' value=''>
-                                -->
+
                 <?php
                 }
                 else {
@@ -89,34 +74,24 @@
 ?>
 
 <script>
+// TODO - move this to header when fully ready
 function chatWithUser(x) {
-console.log('chatWithUser(): var x is', x);
 var recipient = x;
-console.log('chatWithUser(): var recipient is', recipient);
 
-
-    
-    
- $.ajax({
-  type: 'post',
-  url: 'http://localhost/messenger/loadscripts/messageAjax.php',
-  data: {
-   recipient_username:recipient,
-  },
-  success: function (response) {
+$.ajax({
+    type: 'post',
+    url: 'http://localhost/messenger/loadscripts/messageAjax.php',
+    data: {
+        recipient_username:recipient,
+    },
+    success: function (response) {
     console.log('chatWithUser(): Updating Recipient...');
     //console.log('New recipient is: ', recipient);
-  }
- });
-updateMessages();
-updateMessageHeader();
-    
-$(".ccContent").height($("body").height()-150);
-$(".messengerDetails").height($("body").height()-150);
-$(".messagehistory").height($(".messengerscript").height()-230);
-var a = document.getElementById("out");
-a.scrollTop = a.scrollHeight - a.clientHeight;
-console.log('message history / script window resize function running')
+    }
+});
+
+document.getElementById("ccTab3").click();
+callRefresh();
 }
 </script>
 

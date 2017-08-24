@@ -1,10 +1,6 @@
 <?php
 ob_start();
 session_start();  
-?>
-
-
-<?php
 
 if(isset($_POST['recipient_username'])) {
         

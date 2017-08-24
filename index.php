@@ -1,12 +1,13 @@
 <?php
-
+ob_start();
+session_start();
 
 if($_SESSION['username']) {
     header("Location: /messenger/profile.php");
-    exit();
     }
 else {
     header("Location: /messenger/register.php");
 }
 
+?>
 
