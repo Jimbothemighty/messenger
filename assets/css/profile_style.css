@@ -187,15 +187,27 @@ section {
     border: 1px solid #999;
 }
 
+#content2 input[type="submit"] {
+    //box-shadow: none;
+}
 
-
-
-
-
-
-
-
-
+#update_recipient_form input[type="button"] {
+    height: 200px;
+    //padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 300px;
+    background-color: bisque;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    margin: 0px;
+    text-shadow: none;
+    box-shadow: none;
+    font-style: normal;
+    text-align: left;
+    color: black;
+}
 
 /* --------------------------------------- END OF CONTACTS TAB STYLE ------------------------------------------- */
 
