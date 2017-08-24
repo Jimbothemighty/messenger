@@ -4,8 +4,8 @@ require 'config/config.php';
 require 'includes/reg_handler.php';
 require 'includes/login_handler.php';
 
-require 'includes/User_class.php';  // just added DOES NOT BREAK PAGE
-require 'includes/Post_class.php';  // just added DOES NOT BREAK PAGE
+require 'includes/User_class.php';
+require 'includes/Post_class.php';
 
 include 'header.php';
 
@@ -13,7 +13,7 @@ include 'header.php';
 
 <?php
 // TODO - these two lines are causing trouble. don't think i've imported the post and messenger classes properly yet
-//$post = new Post($connection, $userLoggedIn); /* create new instance of Post class */
+$post = new Post($connection, $userLoggedIn); /* create new instance of Post class */
 //$message = new Messenger($connection, $userLoggedIn);
 
 if(isset($_POST['post_button'])) {
@@ -21,11 +21,8 @@ if(isset($_POST['post_button'])) {
         $user_to = $user['username'];
         $post->submitPost($body, $user_to); /* submit to function submitPost in class Post */
         }
-
-// just moved isset message - DOES NOT BREAK PAGE
 ?>
 
-<!-- just completely changed the html/php to the latest version. - DOES NOT BREAK PAGE -->
 <div class="ccContent">
 
     <!-- These are the tabs themselves -->
@@ -138,11 +135,13 @@ if(isset($_POST['post_button'])) {
 
     <?php
             $recipient = $_SESSION['recipient_username'];
-            echo "<div class='messageHeader'>";
-            echo "<div style='float: left;'>" . $recipient . "</div>";
-            echo "<div style='float: right;'>" . $userLoggedIn . "</div>";
-            echo "</div><br>"; 
-    ?>           
+    ?>
+
+            <div class='messageHeader'>
+            <div style='float: left;'><?php echo $recipient; ?></div>
+            <div style='float: right;'><?php echo $userLoggedIn; ?></div>
+            </div><br> 
+          
             <div id='out' class='messagehistory'>          
                 <!-- THIS IS WHERE THE MESSAGE HISTORY GOES -->
     <?php
@@ -188,12 +187,12 @@ if(isset($_POST['post_button'])) {
             echo "<script>console.log('ID of last stored message (i): " . $i . "');</script>";          // i: id of last message to display (and last in table by id)
             echo "<script>console.log('-----------------------------------------');</script>";
 
+            if (($w - 100) > 0) {
+                echo "<div style='background-color: #DDD; text-align: center'><text style='color: black;'>Click to load more messages... </text><text style='color: red;'>(Feature not yet active)</text></div>";
+            }
+                
             // load 100 messages
             for($y; $y <= $w; $y++) {
-
-                if (($y === $w - 100) > 0) {
-                    echo "<div style='background-color: #DDD; text-align: center'><text style='color: black;'>Click to load more messages... </text><text style='color: red;'>(Feature not yet active)</text></div>";
-                }
 
                 mysqli_data_seek ($specific_message,$a);      
                 $specific_message_array = mysqli_fetch_assoc($specific_message);
@@ -252,7 +251,7 @@ if(isset($_POST['post_button'])) {
                 </form>
             </div>
 
-        </div>    
+        </div>   
     </div>
         
 

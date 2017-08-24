@@ -6,4 +6,4 @@ function switchNavCss() {
     } else {
         x.className = "topNavMenu";
     }
-} 
+}
