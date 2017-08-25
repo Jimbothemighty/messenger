@@ -29,8 +29,8 @@ if(isset($_POST['post_button'])) {
     <input id="ccTab1" type="radio" name="tabs" onclick="stopRefresh();">
     <label for="ccTab1"><span>Profile</span></label>
 
-    <input id="ccTab2" type="radio" name="tabs" onclick="stopRefresh();" checked>
-    <label for="ccTab2"><span>Contacts</span></label>
+    <input id="ccTab2" type="radio" name="tabs" onclick="stopRefresh(); loadConversations();" checked>
+    <label for="ccTab2"><span>Conversations</span></label>
 
     <input id="ccTab3" type="radio" name="tabs" onclick="callRefresh();">
     <label for="ccTab3"><span>Chat</span></label>
@@ -56,7 +56,7 @@ if(isset($_POST['post_button'])) {
             <br>
             <div class="profileInformation"> 
             <div class="profilePicture">
-                <img src="<?php echo $user['profile_pic'];  ?>">
+                <!-- <img src="<?php echo $user['profile_pic'];  ?>"> -->
             </div>
             <div class="profileText">
             <u>Basic Profile:</u><br>
@@ -67,7 +67,7 @@ if(isset($_POST['post_button'])) {
             </div>
 
             <div class="post">
-                <form class="post_form" action="/profile" method="POST">
+                <form class="post_form" action="/messenger/profile.php" method="POST">
                     <textarea name="post_textarea" id="post_textarea" placeholder="Post something."></textarea><br>
                     <input type="submit" name="post_button" value="Post">
                 </form>
@@ -103,29 +103,27 @@ if(isset($_POST['post_button'])) {
                 }
             }
             ?>
-
-            <div id="logout">
-            </div>
             <?php
             } else { echo 'User is not logged in.<br><A HREF="/register#loginTag">Log In</A> or <A HREF="/register#registerTag">Register</A>'; }
             ?>
-            <div id="logout">
-            </div>
         </div>
 
     </section>
 
     <section id="content2" class="tab-content">
-    <div>
-
-    <input type="submit" onclick="loadUsers(); return false;" value="Load Users" style="width: 100%; margin: 0 auto; margin-top: 10px; margin-bottom: 10px;">
-    <br>
-    <div id="userList">Empty...
-    <br>
+        <div class="conversationsWrapper">
+        <br>
+        <div id="convoList">Loading...</div>
+        <br>
         
-
-    </div>  
-    </div>
+        <form class="search_form" action="/messenger/profile.php" method="POST" onsubmit="searchUsers(); $('.search_form')[0].reset(); return false;">
+            <input id="searchTerm" type="text" name="searchTerm" placeholder="Search for Users" value ="" required>
+            <input type="submit" value="Load Users" required>
+        </form>
+        
+        <br>
+        <div id="userList"></div>
+        </div>
     </section>
 
     <section id="content3" class="tab-content">
@@ -143,15 +141,17 @@ if(isset($_POST['post_button'])) {
 
             <div class="messenger">
                 <form class="message_form" action="/profile" method="POST" onsubmit="submitdata(); $('.message_form')[0].reset(); return false;"> 
-                    <div class="toRecipient">
+                    <div class="toRecipient" style="display: none;">
                         <div class="recipientInput">
                             To: <input id="recipient" type="text" name="recipient_username" placeholder="Recipient username" value ="<?php
                             if(isset($_SESSION['recipient_username']))
                             { echo $_SESSION['recipient_username']; } else {echo ""; } ?>"
                             required>
                         </div>
-                    <input type="submit" name="message_button" value="Send"></div><br>
-                    <textarea type="text" class="message_textarea" id="message_body" name="message_textarea" placeholder="Send a message." required></textarea><br>
+                    </div><br>
+                    <textarea type="text" class="message_textarea" id="message_body" name="message_textarea" placeholder="Send a message." required></textarea>
+                    <input type="submit" name="message_button" value="Send">
+                    <br>
                 </form>
             </div>
 

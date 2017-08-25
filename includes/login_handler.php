@@ -22,7 +22,7 @@ if(isset($_POST['login_button'])) {
         if(password_verify($password, $hashedPassword)) {
             $_SESSION['username'] = $username;
             array_push ($success_login_array, 'Login successful.<br>');
-            header("Location: /profile");
+            header("Location: /messenger/profile.php");
             exit();
         }
     }

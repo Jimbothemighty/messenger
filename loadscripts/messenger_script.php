@@ -69,12 +69,15 @@
         echo "<script>console.log('Session recipient stored: " . $_SESSION['recipient_username'] . "');</script>"; 
         echo "<script>console.log('-----------------------------------------');</script>";
 
+        /*
+        // These few lines of code is not working :S breaks messenger for some reason
+        if (($y > 100) {
+            echo "<div style='background-color: #DDD; text-align: center'><text style='color: black;'>Click to load more messages... </text><text style='color: red;'>(Feature not yet active)</text></div>";
+        }
+        */
+
         // load 100 messages
         for($y; $y <= $w; $y++) {
-            
-            if (($y === $w - 100) > 0) {
-                echo "<div style='background-color: #DDD; text-align: center'><text style='color: black;'>Click to load more messages... </text><text style='color: red;'>(Feature not yet active)</text></div>";
-            }
             
             mysqli_data_seek ($specific_message,$a);      
             $specific_message_array = mysqli_fetch_assoc($specific_message);

@@ -67,7 +67,7 @@
 
 
 
-input[type="text"], input[type="email"], input[type="password"], input[type="button"] {
+#loginDiv input[type="text"], #loginDiv input[type="email"], #loginDiv input[type="password"], #loginDiv input[type="button"] {
     background: transparent;
     border: 3px solid #DDD;
     width: 30%;
@@ -88,7 +88,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="but
     box-shadow: 0px 0px 2px #000;
 }
 
-input[type="submit"] {
+#loginDiv input[type="submit"], #registerDiv input[type="submit"] {
     background: transparent;
     border: 4px solid #DDD;
     width: 140px;
@@ -103,6 +103,56 @@ input[type="submit"] {
     text-shadow: 0px 0px 10px #000;
     box-shadow: 0px 0px 10px #000;
 }
+
+#registerDiv input[type="text"], #registerDiv input[type="email"], #registerDiv input[type="password"], #registerDiv input[type="button"] {
+    background: transparent;
+    border: 3px solid #DDD;
+    width: 30%;
+    max-width: 400px;
+    min-width: 300px;
+    height: 15%;
+    max-height: 50px;
+    min-height: 25px;
+    padding: 5px;
+    padding-left: 20px;
+    margin: 5px;
+    color: #FFF;
+    font-size: 1.2em;
+    //font-weight: bold;
+    //font-variant: small-caps;
+    font-style: italic;
+    text-shadow: 0px 0px 10px #000;
+    box-shadow: 0px 0px 2px #000;
+}
+
+
+
+/* STYLING FOR PLACEHOLDER TEXT CROSS BROWSER */
+#registerDiv ::-webkit-input-placeholder {
+    color: #FFF;
+}
+#loginDiv ::-webkit-input-placeholder {
+    color: #FFF;
+}
+#registerDiv :-moz-input-placeholder {
+    color: #FFF;
+}
+#loginDiv :-moz-input-placeholder {
+    color: #FFF;
+}
+#registerDiv ::-moz-input-placeholder {
+    color: #FFF;
+}
+#loginDiv ::-moz-input-placeholder {
+    color: #FFF;
+}
+#registerDiv :-ms-input-placeholder {
+    color: #FFF;
+}
+#loginDiv :-ms-input-placeholder {
+    color: #FFF;
+}
+/* END OF STYLING FOR PLACEHOLDER TEXT CROSS BROWSER */
 
 .outputLog {
     width: 40%;

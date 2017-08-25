@@ -76,6 +76,16 @@ function loadUsers() {
     });
 }
 
+// load user list into contacts tab
+function loadConversations() {        
+    $("#convoList").load("http://localhost/messenger/loadscripts/get_conversations_script.php", function( response, status, xhr ) {
+        if ( status == "error" ) {
+            var msg = 'Loading users resulted in an error: ';
+            console.log(msg + xhr.status + " " + xhr.statusText );
+        }
+    });
+}
+
 // ajax to select recipient
 function chatWithUser(x) {
 var recipient = x;
@@ -121,16 +131,37 @@ function submitdata() {
 updateMessages();
 }
 
+// ajax to get search results by user
+function searchUsers() {
+ var search_term = document.getElementById("searchTerm").value;
+
+ $.ajax({
+  type: 'post',
+  url: 'http://localhost/messenger/loadscripts/searchUsersAjax.php',
+  data: {
+   searchTerm:search_term,
+  },
+  success: function (response) {
+    console.log('Getting User search results.');
+  },
+  fail: function (responsetwo) {
+    console.log('Its fucked!');  
+  }
+ });
+loadUsers();
+}
+
 // JQUERY DYNAMIC WINDOW RESIZING FOR MESSAGE HISTORY
 function scrolltoBottom() {
-    $(".ccContent").height($("body").height()-150);
-    $(".messengerDetails").height($("body").height()-150);
-    $(".messagehistory").height($(".messengerscript").height()-230);
+    $(".ccContent").height($("body").height()-101);
+    $(".messengerDetails").height($("body").height()-101);
+    $(".messagehistory").height($(".messengerscript").height()-177);
     var a = document.getElementById("out");
     a.scrollTop = a.scrollHeight - a.clientHeight;
 };
     jQuery(document).ready(function($) {
         scrolltoBottom();
+        loadConversations();
         console.log('message history / script doc ready function running')
     });
     $(window).resize(function() {
