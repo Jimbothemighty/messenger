@@ -104,7 +104,7 @@ if(isset($_POST['register_button'])) {
         $check_username = mysqli_query($connection, "SELECT username FROM users WHERE username='$username'");
         }
     
-        $profile_pic = 0;
+        $profile_pic = 'assets/images/profilepic/default.png';
         $query = mysqli_query($connection, "INSERT INTO users VALUES (NULL, '$fname', '$lname', '$username', '$em', '$pw', '$date', '$profile_pic', '0', '0', 'no', ',')");
         
         $e_check = mysqli_query($connection, "SELECT email FROM users WHERE email='$em'");

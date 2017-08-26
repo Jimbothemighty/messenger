@@ -92,7 +92,7 @@
                     if ($specific_message_array['added_by'] == $userLoggedIn) {
                     echo "<div class='message' style='flex-direction: row-reverse;'>";
                     //echo "<img src=" . echo $user['profile_pic'] . ">";
-                    echo "<div class='messageText' style='background-color: dodgerblue;'>" . $specific_message_array['body'] . "</div>";   
+                    echo "<div class='messageText' style='background-color: darkviolet;'>" . $specific_message_array['body'] . "</div>";   
                     }
                     else {
                     echo "<div class='message'>";

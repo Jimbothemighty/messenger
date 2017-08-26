@@ -123,6 +123,7 @@ section {
     align-items: center;
     border: 1px solid #FFF;
     margin-top: 20px;
+    background-color: darkviolet;
 }
 
 .profilePicture {
@@ -282,7 +283,7 @@ section {
 /* ------------------------------------------ MESSENGER TAB STYLE ---------------------------------------------- */
 
 .messengerDetails {
-    background-color: darkviolet;
+    background-color: dodgerblue;
     color: #FFF;
     float: left;
     text-align: left;

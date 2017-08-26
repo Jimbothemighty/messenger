@@ -14,6 +14,7 @@ include 'header.php';
 <?php
 // TODO - these two lines are causing trouble. don't think i've imported the post and messenger classes properly yet
 $post = new Post($connection, $userLoggedIn); /* create new instance of Post class */
+$userC = new User($connection, $userLoggedIn); /* create new instance of User class */
 //$message = new Messenger($connection, $userLoggedIn);
 
 if(isset($_POST['post_button'])) {
@@ -21,15 +22,20 @@ if(isset($_POST['post_button'])) {
         $user_to = $user['username'];
         $post->submitPost($body, $user_to); /* submit to function submitPost in class Post */
         }
+
+if(file_exists($user['profile_pic']))
+    $fileName = $user['profile_pic'];
+else
+    $fileName = "assets/images/profilepic/default.png";
 ?>
 
 <div class="ccContent">
 
     <!-- These are the tabs themselves -->
-    <input id="ccTab1" type="radio" name="tabs" onclick="stopRefresh();">
+    <input id="ccTab1" type="radio" name="tabs" onclick="stopRefresh();" checked>
     <label for="ccTab1"><span>Profile</span></label>
 
-    <input id="ccTab2" type="radio" name="tabs" onclick="stopRefresh(); loadConversations();" checked>
+    <input id="ccTab2" type="radio" name="tabs" onclick="stopRefresh(); loadConversations();">
     <label for="ccTab2"><span>Conversations</span></label>
 
     <input id="ccTab3" type="radio" name="tabs" onclick="callRefresh();">
@@ -55,15 +61,23 @@ if(isset($_POST['post_button'])) {
             ?>
             <br>
             <div class="profileInformation"> 
-            <div class="profilePicture">
-                <!-- <img src="<?php echo $user['profile_pic'];  ?>"> -->
-            </div>
-            <div class="profileText">
-            <u>Basic Profile:</u><br>
-            <!-- See config.php for userDetails array (summed up as $user) -->
-            User full name: <?php echo $user['first_name'] . " " . $user['last_name']; ?><br>
-            Email Address: <?php echo $user['email'];  ?>
-            </div>
+                <div class="profilePicture">
+                    <img src="<?php echo $fileName;  ?>" "style=width: 170px; height: 170px;">
+                </div>
+                <div class="profileText">
+                <u>Basic Profile:</u><br>
+                <!-- See config.php for userDetails array (summed up as $user) -->
+                User full name: <?php echo $user['first_name'] . " " . $user['last_name']; ?><br>
+                Email Address: <?php echo $user['email'];  ?><br>
+                    <button type="button" style="width: 200px; height: 50px; color: black;" onclick="document.getElementById('update_pic').style.display='block';" value="Update Profile picture">Update Profile picture</button>
+                    <div id="update_pic" style="display:none;">
+                        <form action="upload.php" method="post" enctype="multipart/form-data">
+                            Select image to upload:<br>
+                            <div style="overflow: hidden; max-width: 300px;"><input type="file" name="fileToUpload" id="fileToUpload"></div>
+                            <input type="submit" value="Upload Image" name="upload_profilepic">
+                        </form>
+                    </div>
+                </div>
             </div>
 
             <div class="post">
