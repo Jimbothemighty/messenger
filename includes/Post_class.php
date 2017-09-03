@@ -51,7 +51,7 @@ class Post {
                 echo "<script>console.log('User To:" . $user_to . "');</script>";
             }    
                 
-            $query_post = mysqli_query($this->connection, "INSERT INTO posts VALUES ('', '$body', '$added_by', '$user_to', '$date_added', 'no', 'no', '0', '$user_post_id' )");
+            $query_post = mysqli_query($this->connection, "INSERT INTO posts VALUES (NULL, '$body', '$added_by', '$user_to', '$date_added', 'no', 'no', '0', '$user_post_id' )");
 
             $returned_id = mysqli_insert_id($this->connection);
 

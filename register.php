@@ -52,7 +52,7 @@ include 'header.php';
             required>
         <br>
         <?php if(in_array("Your first name must be between 2 and 25 characters in length.<br>", $error_array))
-            { echo "<div class='outputLog'>Your first name must be between 2 and 25 characters in length.</div>"; } ?>
+            { echo "<div class='outputLog' style='color: red;'>Your first name must be between 2 and 25 characters in length.</div>"; } ?>
 
         <input type="text" name="reg_lname" placeholder="Last Name" value ="<?php
         if(isset($_SESSION['reg_lname']))
@@ -60,7 +60,7 @@ include 'header.php';
             required>
         <br>
         <?php if(in_array("Your last name must be between 2 and 25 characters in length.<br>", $error_array))
-            { echo "<div class='outputLog'>Your last name must be between 2 and 25 characters in length.</div>"; } ?>
+            { echo "<div class='outputLog' style='color: red;'>Your last name must be between 2 and 25 characters in length.</div>"; } ?>
         
         <input type="email" name="reg_email" placeholder="Email" value ="<?php
         if(isset($_SESSION['reg_email']))
@@ -68,11 +68,11 @@ include 'header.php';
             required>
         <br>
         <?php if(in_array("Invalid email format.<br>", $error_array))
-            { echo "<div class='outputLog'>Invalid email format.</div>"; } ?>
+            { echo "<div class='outputLog' style='color: red;'>Invalid email format.</div>"; } ?>
         <?php if(in_array("Emails do not match.<br>", $error_array))
-            { echo "<div class='outputLog'>Emails do not match.</div>"; } ?>
+            { echo "<div class='outputLog' style='color: red;'>Emails do not match.</div>"; } ?>
         <?php if(in_array("This email address is already in use.<br>", $error_array))
-            { echo "<div class='outputLog'>This email address is already in use.</div>"; } ?>
+            { echo "<div class='outputLog' style='color: red;'>This email address is already in use.</div>"; } ?>
           
         <input type="email" name="reg_email2" placeholder="Confirm Email" value ="<?php
         if(isset($_SESSION['reg_email2']))
@@ -84,16 +84,16 @@ include 'header.php';
         <br>
         
         <div id="alert">
-            <span class="closebtn" style="float: right; padding-right: 15px; font-size: 2em;" onclick="this.parentElement.style.display='none';">&times;</span>
+            <div class="closebtn" style="float: right; padding-right: 15px; font-size: 2em;" onclick="this.parentElement.style.display='none';">&times;</div>
             You can't paste into the Password fields.
         </div>
         
         <?php if(in_array("Passwords do not match.<br>", $error_array))
-            { echo "<div class='outputLog'>Passwords do not match.</div>"; } ?>
+            { echo "<div class='outputLog' style='color: red;'>Passwords do not match.</div>"; } ?>
         <?php if(in_array("Your password can only contain characters from the English Alphabet or numbers.<br>", $error_array))
-            { echo "<div class='outputLog'>Your password can only contain characters from the English Alphabet or numbers.</div>"; } ?>
+            { echo "<div class='outputLog' style='color: red;'>Your password can only contain characters from the English Alphabet or numbers.</div>"; } ?>
         <?php if(in_array("Your password is of an invalid length. Please select a password between 8 and 20 characters in length.<br>", $error_array))
-            { echo "<div class='outputLog'>Your password is of an invalid length. Please select a password between 8 and 20 characters in length.</div>"; } ?>    
+            { echo "<div class='outputLog' style='color: red;'>Your password is of an invalid length. Please select a password between 8 and 20 characters in length.</div>"; } ?>    
         
         <input type="password" name="reg_password2" onpaste="noPasteAlert(); return false;" ondrop="noPasteAlert(); return false;" autocomplete="off" placeholder="Confirm Password" required>   
         <br>
@@ -101,10 +101,10 @@ include 'header.php';
         <br>
         <?php
         if(in_array('<span style="color:green;">Registration completed successfully, please log in.</span><br>', $error_array)) {
-            echo "<br><span class='outputLog' style='color:green;'>Registration completed successfully, please log in.</span><br>";
+            echo "<br><div class='outputLog' style='color:green;'>Registration completed successfully, please log in.</div><br>";
         }
         if(in_array('<span style="color:red;">Registration Error. There has been an error. Your details have not been registered on the website.</span><br>', $error_array)) {
-            echo "<span class='outputLog' style='color:red;'>Registration Error. There has been an error. Your details have not been registered on the website.</span><br>";
+            echo "<div class='outputLog' style='color:red;'>Registration Error. There has been an error. Your details have not been registered on the website.</div><br>";
         }
         ?>
     </form>
@@ -112,7 +112,9 @@ include 'header.php';
 </div> <!-- close innerWrapper -->
 </div> <!-- close wrapper -->
 
-<?php include 'messenger/footer.php'; ?>
-    
+<?php
+include 'footer.php';
+?>
+
 </body>
 </html>

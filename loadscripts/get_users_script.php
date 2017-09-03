@@ -1,27 +1,29 @@
 <?php
     //require 'includes/User_class.php';
 
+    header("Cache-Control: no-cache");
+    header("Pragma: no-cache");
+
+    header("Access-Control-Allow-Origin: *");
+
     ob_start();
     session_start();
 
     $timezone = date_default_timezone_set("Europe/London");
 
-    $connection = mysqli_connect("localhost", "root", "root", "soc_net"); // connection variable
+    $connection = mysqli_connect("better-planet.org", "superBasic", "juniper1234", "soc_net");
     $conn_array = array();
-?>
 
+    $userLoggedIn = $_SESSION['username'];
 
-<?php 
-if(isset($_POST['searchTerm'])) {
-        $searchTerm = strip_tags($_POST['searchTerm']);
-        $searchTerm = str_replace(' ', '', $searchTerm);
-        $_SESSION['searchTerm'] = $searchTerm;
+    echo '<script>console.log("Get search results script is running...");</script>';
+
         $searchTerm = $_SESSION['searchTerm'];
-}
-        $searchTerm = $_SESSION['searchTerm'];
-        echo "<script>console.log('from inside get users script:" . $searchTerm . "')</script>";
+        echo "<script>console.log('from inside get_users_script():" . $_SESSION['searchTerm'] . "')</script>";
+        echo "<script>console.log('from inside get_users_script():" . $searchTerm . "')</script>";
+        if($searchTerm == "") { echo "SEARCH TERM IS EMPTY."; return; }
 
-    $user_list_query = mysqli_query($connection, "SELECT * FROM users WHERE (username LIKE '%".$searchTerm."%') OR (first_name LIKE '%".$searchTerm."%') OR (last_name LIKE '%".$searchTerm."%')");
+        $user_list_query = mysqli_query($connection, "SELECT * FROM users WHERE (username LIKE '%".$searchTerm."%') OR (first_name LIKE '%".$searchTerm."%') OR (last_name LIKE '%".$searchTerm."%') ORDER BY id ASC");
 
         $num_rows = mysqli_num_rows($user_list_query);      
         $w = $num_rows;     
@@ -43,6 +45,11 @@ if(isset($_POST['searchTerm'])) {
         echo "<script>console.log('Index (ID) of last stored user (i): " . $i . "');</script>";
         echo "<script>console.log('-----------------------------------------');</script>";
 
+        if ($userLoggedIn == "") {
+            echo "<p>User session needs to be refreshed. This script does not recognise a logged in user.</p>";
+            return;
+        }
+
         echo '<form id="getContacts" action="profile.php" method="POST" onsubmit="return false;">';
         echo '<div id="userSearchResults">';
         // load all users
@@ -56,24 +63,24 @@ if(isset($_POST['searchTerm'])) {
             $userSelected = $user_array['username'];
             $fullName = $user_array['first_name'] . ' ' . $user_array['last_name'];
             
-            
+            if($num_rows < 1) { echo "<P>Sorry, no results matched your query.</P>"; return; }
                 if ($user_array['id'] != NULL)  {
-                ?>
+                    if($user_array['username'] != $userLoggedIn) {
+                        ?>
+                            <script>
+                            // TODO - move script to messenger.js
+                            // TODO - this is a bit hacky. There's something wrong with the php variable I'm submitting as a string. For some reason it has a space " " at the start. But if I delete it, I get an error. Currently I'm deleting the space in php in messageAjax.php, which is where this is submitting to. 
+                            var inputElement = document.createElement('input');
+                            inputElement.type = "button";
+                            inputElement.value = '\ <?php echo  $fullName . ' (Username: ' . $userSelected . ')'; ?>';
+                            inputElement.addEventListener('click', function(){
+                                chatWithUser('\ <?php echo $userSelected; ?>');
+                            });
 
-                    <script>
-                    // TODO - move script to messenger.js
-                    // TODO - this is a bit hacky. There's something wrong with the php variable I'm submitting as a string. For some reason it has a space " " at the start. But if I delete it, I get an error. Currently I'm deleting the space in php in messageAjax.php, which is where this is submitting to. 
-                    var inputElement = document.createElement('input');
-                    inputElement.type = "button";
-                    inputElement.value = '\ <?php echo  $fullName . ' (Username: ' . $userSelected . ')'; ?>';
-                    inputElement.addEventListener('click', function(){
-                        chatWithUser('\ <?php echo $userSelected; ?>');
-                    });
-
-                    document.getElementById("userSearchResults").appendChild(inputElement);
-                    </script>
-
-                <?php
+                            document.getElementById("userSearchResults").appendChild(inputElement);
+                            </script>
+                        <?php
+                    }
                 }
                 else {
                     //echo "<br>Row is missing data.<br>";
@@ -83,28 +90,4 @@ if(isset($_POST['searchTerm'])) {
         }
         echo '</form>';
 ?>
-
-<script>
-    /*
-// TODO - move this to header when fully ready
-function chatWithUser(x) {
-var recipient = x;
-
-$.ajax({
-    type: 'post',
-    url: 'http://localhost/messenger/loadscripts/messageAjax.php',
-    data: {
-        recipient_username:recipient,
-    },
-    success: function (response) {
-    console.log('chatWithUser(): Updating Recipient...');
-    //console.log('New recipient is: ', recipient);
-    }
-});
-
-document.getElementById("ccTab3").click();
-callRefresh();
-}
-*/
-</script>
 

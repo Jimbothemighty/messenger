@@ -10,16 +10,8 @@
 
     <title>Messenger Web Application</title>
 
-    <link href="http://localhost/messenger/style.css" rel="stylesheet">
-    <link href="http://localhost/messenger/assets/css/reg_style.css" rel="stylesheet">
-    <link href="http://localhost/messenger/assets/css/profile_style.css" rel="stylesheet">
-    <link href="http://localhost/messenger/assets/css/messenger_style.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open Sans">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="http://localhost/messenger/assets/js/jQuery3.2.1.js"></script>
-    <script src="http://localhost/messenger/assets/js/nav.js"></script>
-    <script src="http://localhost/messenger/assets/js/messenger.js"></script>
-
+    <link href="https://better-planet.org/messenger/style.css" rel="stylesheet">
+      
       <!-- this is needed to full page the register.php page. TODO - move this to reg_style or style.css -->
     <style>
         html,body{height:100%;}
@@ -43,9 +35,21 @@
     </head>
 <body>
 
-<div class="topNavMenu" id="wp_TopNavMenu">
-    <a href="profile.php">Profile</a>
-    <a href="register.php">Register</a>
-    <a href="logout.php">Log out</a>
-    <a href="javascript:void(0);" class="icon" onclick="switchNavCss()">&#9776;</a>
-</div>
+
+
+    
+
+    <div class="topNavMenu" id="wp_TopNavMenu">
+        <a href="profile.php">Profile</a>
+        <a href="roadmap.php">Roadmap</a>
+        <?php
+        if($_SESSION['username']) {
+        echo "<a href='logout.php'>Log out</a>";
+        }
+        else {
+        echo "<a href='register.php'>Log In</a>";
+        echo "<a href='register.php'>Register</a>";
+        }
+        ?>
+        <a href="javascript:void(0);" class="icon" onclick="switchNavCss()">&#9776;</a>
+    </div>

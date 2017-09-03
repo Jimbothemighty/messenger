@@ -1,6 +1,10 @@
 <?php
-
 require 'config/config.php';
+
+header("Cache-Control: no-cache");
+header("Pragma: no-cache");
+
+header("Access-Control-Allow-Origin: *");
 require 'includes/reg_handler.php';
 require 'includes/login_handler.php';
 
@@ -9,12 +13,13 @@ require 'includes/Post_class.php';
 
 include 'header.php';
 
+    echo "<script>console.log('get_conversatons; Session User is: " . $userLoggedIn . "');</script>";
+    echo "<script>console.log('get_conversatons; Session ID is: "  . session_id() . "');</script>";
 ?>
 
 <?php
 // TODO - these two lines are causing trouble. don't think i've imported the post and messenger classes properly yet
 $post = new Post($connection, $userLoggedIn); /* create new instance of Post class */
-$userC = new User($connection, $userLoggedIn); /* create new instance of User class */
 //$message = new Messenger($connection, $userLoggedIn);
 
 if(isset($_POST['post_button'])) {
@@ -28,6 +33,11 @@ if(file_exists($user['profile_pic']))
 else
     $fileName = "assets/images/profilepic/default.png";
 ?>
+<div id="loadingOverlay" style="display: none;"><div id="loadAnimation" style="
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    "></div><br>Loading...<br><button onclick="document.getElementById('loadingOverlay').style.display='none';">Cancel</button></div>
 
 <div class="ccContent">
 
@@ -71,7 +81,7 @@ else
                 Email Address: <?php echo $user['email'];  ?><br>
                     <button type="button" style="width: 200px; height: 50px; color: black;" onclick="document.getElementById('update_pic').style.display='block';" value="Update Profile picture">Update Profile picture</button>
                     <div id="update_pic" style="display:none;">
-                        <form action="upload.php" method="post" enctype="multipart/form-data">
+                        <form action="upload.php" method="post" enctype="multipart/form-data" onsubmit="document.getElementById('loadingOverlay').style.display='block'; document.getElementById('loadAnimation').style.display='block';">
                             Select image to upload:<br>
                             <div style="overflow: hidden; max-width: 300px;"><input type="file" name="fileToUpload" id="fileToUpload"></div>
                             <input type="submit" value="Upload Image" name="upload_profilepic">
@@ -118,7 +128,7 @@ else
             }
             ?>
             <?php
-            } else { echo 'User is not logged in.<br><A HREF="/register#loginTag">Log In</A> or <A HREF="/register#registerTag">Register</A>'; }
+            } else { echo 'User is not logged in.<br><A HREF="/messenger/register.php/#loginTag">Log In</A> or <A HREF="/messenger/register.php/#registerTag">Register</A>'; }
             ?>
         </div>
 
@@ -127,16 +137,19 @@ else
     <section id="content2" class="tab-content">
         <div class="conversationsWrapper">
         <br>
+        <div class="generalHeader">Conversation List</div>
         <div id="convoList">Loading...</div>
         <br>
-        
-        <form class="search_form" action="/messenger/loadscripts/get_users_script.php" method="POST" onsubmit="searchUsers(); $('.search_form')[0].reset(); loadUsers(); return false;">
-            <input id="searchTerm" type="text" name="searchTerm" placeholder="Search for Users" value ="">
+        <div class="generalHeader">Search for Users</div>
+        <form class="search_form" action="/messenger/searchUsersAjax.php" method="POST" onsubmit="submitSearch(); return false;">
+            <input id="searchTerm" type="text" name="searchTerm" autocomplete="off" placeholder="Search for Users" value ="">
             <input type="submit" value="Load Users" onclick="">
-        </form>
+        </form>    
         
         <br>
+        <div id="loadAnimation" class="loader" style="display: none;"></div>
         <div id="userList"></div>
+            <!-- get search results -->       
         </div>
     </section>
 
@@ -177,6 +190,9 @@ else
                
 </div>
 
-    
+<?php
+include 'footer.php';
+?>    
+
 </body>
 </html>

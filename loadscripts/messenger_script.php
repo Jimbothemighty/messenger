@@ -1,10 +1,15 @@
 <?php
+    header("Cache-Control: no-cache");
+    header("Pragma: no-cache");
+
+    header("Access-Control-Allow-Origin: *");
+
     ob_start();
     session_start();
 
     $timezone = date_default_timezone_set("Europe/London");
 
-    $connection = mysqli_connect("localhost", "root", "root", "soc_net"); // connection variable
+    $connection = mysqli_connect("better-planet.org", "superBasic", "juniper1234", "soc_net");
     $conn_array = array();
 
     if(mysqli_connect_errno())
@@ -44,14 +49,14 @@
         mysqli_data_seek ($specific_message,$x);      
         $last_row=mysqli_fetch_row($specific_message);
         $i = $last_row['0']; /* index 0 is the id */
-        mysqli_free_result($result);
+        //mysqli_free_result($result);
 
         $y = $w - 100; // 100 (magic number...) is the limit of how many messages can be shown.
 
         mysqli_data_seek ($specific_message,$y);      
         $first_message_to_load=mysqli_fetch_row($specific_message);
         $z = $first_message_to_load['0']; /* index 0 is the id */
-        mysqli_free_result($result);
+        //mysqli_free_result($result);
 
         $a = $y;
         $first_m = $y;

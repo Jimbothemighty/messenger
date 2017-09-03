@@ -1,6 +1,12 @@
 <?php
-ob_start();
-session_start();
+
+    header("Cache-Control: no-cache");
+    header("Pragma: no-cache");
+
+    header("Access-Control-Allow-Origin: *");
+
+    ob_start();
+    session_start();
 
 ?>
 

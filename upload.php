@@ -1,11 +1,38 @@
+<style>
+#loadingOverlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 3;
+    cursor: pointer;
+}
+
+button {
+    position: fixed;
+    top: 48%;
+    left: 45%;
+    width: 200px;
+    height: 80px;
+    padding: 10px;
+}
+</style>
+
 <?php
 
 // TODO - see if I need to sanitise filenames for the upload
 
 ob_start();
 session_start();
-$connection = mysqli_connect("localhost", "root", "root", "soc_net");
+$connection = mysqli_connect("better-planet.org", "superBasic", "juniper1234", "soc_net");
 $userLoggedIn = $_SESSION['username'];
+
+ini_set('max_execution_time', 500);
 
 echo "Upload image script is running...<br>";
 
@@ -15,6 +42,14 @@ $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 $pic_name = $_FILES["fileToUpload"]["name"];
 // Check if image file is a actual image or fake image
+
+if($pic_name == "") {
+    $noImageSelected = "You did not select a file.";
+    echo "<script type='text/javascript'>alert('$noImageSelected');</script>";
+    echo '<div id="loadingOverlay" style="display: block;"><A HREF="/messenger/profile.php"><button>Return to profile.</button></A></div>';
+    exit();
+}
+
 if(isset($_POST["upload_profilepic"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
@@ -31,6 +66,8 @@ if(isset($_POST["upload_profilepic"])) {
     $pic_number = 0;
 
 while(file_exists($target_file)) {
+ini_set('max_execution_time', 500);
+    
 // TODO - FIGURE OUT HOW TO USE MB_SUBSTR (for characters larger than 1 byte)
     $new_pic_name = "";
     $v = 0;
@@ -75,14 +112,16 @@ $pic_name = $new_pic_name;
 
 echo $pic_name . "<br>";
     
-// Check file size
-if ($_FILES["fileToUpload"]["size"] > 500000) {
+// Check file size [currently 10MB limit (10,000,000 bytes)]
+if ($_FILES["fileToUpload"]["size"] > 10000000) {
+    ini_set('max_execution_time', 500);
     echo "Sorry, your file is too large.<br>";
     $uploadOk = 0;
 }
 // Allow certain file formats
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 && $imageFileType != "gif" ) {
+    ini_set('max_execution_time', 500);
     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.<br>";
     $uploadOk = 0;
 }
@@ -98,14 +137,23 @@ if ($uploadOk == 0) {
     }
 }
 
-$query = mysqli_query($connection, "UPDATE users SET profile_pic='assets/images/profilepic/$pic_name' WHERE username='$userLoggedIn'");
+$query = mysqli_query($connection, "UPDATE users SET profile_pic='$target_file' WHERE username='$userLoggedIn'");
 
 
 if($uploadOk == 1) {
-    header("Location: /messenger/profile.php");
+    //echo 'new picture is: ' . $pic_name;
+    //echo 'target_file is: ' . $target_file;
+    $succeeded = "Successfully updated your profile picture.";
+    echo "<script type='text/javascript'>alert('$succeeded');</script>";
+    echo '<div id="loadingOverlay" style="display: block;"><A HREF="/messenger/profile.php"><button>Return to profile.</button></A></div>';
+    exit();
 }
 else {
     echo 'Upload image failed. Please try again later.<br>';
+    $failed = "There was an error uploading your image.";
+    echo "<script type='text/javascript'>alert('$failed');</script>";
+    echo '<div id="loadingOverlay" style="display: block;"><A HREF="/messenger/profile.php"><button>Return to profile.</button></A></div>';
+    exit();
 }
 
 ?>

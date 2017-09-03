@@ -1,3 +1,5 @@
+//$(document).ready(function() {
+
 /*  scrolls to the bottom of the message history div to ensure looking at the latest messages at the same time it gets the updated message list */
 var add; // sets a global variable for use by callRefresh to set an interval
 var bottom;  // (used in callRefresh.) TODO - figure out a way to make this action without the need for a Timeout. It's not the smoothest experience!
@@ -7,7 +9,7 @@ function callRefresh() {
     updateMessages();
     updateMessageHeader();
     updateMessageInput(); 
-    var bottom = setTimeout(scrolltoBottom, 100);  // TODO - figure out a way to make this action without the need for a Timeout. It's not the smoothest experience!
+    var bottom = setTimeout(scrolltoBottom, 200);  // TODO - figure out a way to make this action without the need for a Timeout. It's not the smoothest experience!
     var add = setInterval(updateMessages, 10000);
 }
 
@@ -18,7 +20,7 @@ function stopRefresh() {
 
 // updates chat message history regularly
 function updateMessages() {        
-    $(".messagehistory").load("http://localhost/messenger/loadscripts/messenger_script.php", function( response, status, xhr ) {
+    $(".messagehistory").load("https://www.better-planet.org/messenger/loadscripts/messenger_script.php", function( response, status, xhr ) {
         if ( status == "error" ) {
             var msg = 'Loading messenges resulted in an error: ';
              console.log(msg + xhr.status + " " + xhr.statusText );
@@ -42,7 +44,7 @@ function updateMessages() {
 
 // updates chat header to display current user and recipient
 function updateMessageHeader() {        
-    $(".messageHeader").load("http://localhost/messenger/loadscripts/messenger_header.php", function( response, status, xhr ) {
+    $(".messageHeader").load("https://www.better-planet.org/messenger/loadscripts/messenger_header.php", function( response, status, xhr ) {
         if ( status == "error" ) {
             var msg = 'Loading message header resulted in an error: ';
              console.log(msg + xhr.status + " " + xhr.statusText );
@@ -55,7 +57,7 @@ function updateMessageHeader() {
 
 // updates chat message writing box
 function updateMessageInput() {        
-    $(".messenger").load("http://localhost/messenger/loadscripts/messenger_input.php", function( response, status, xhr ) {
+    $(".messenger").load("https://www.better-planet.org/messenger/loadscripts/messenger_input.php", function( response, status, xhr ) {
         if ( status == "error" ) {
             var msg = 'Loading message header resulted in an error: ';
              console.log(msg + xhr.status + " " + xhr.statusText );
@@ -67,18 +69,22 @@ function updateMessageInput() {
 }
 
 // load user list into contacts tab
-function loadUsers() {        
-    $("#userList").load("http://localhost/messenger/loadscripts/get_users_script.php", function( response, status, xhr ) {
+function loadUsers() {
+    document.getElementById('loadAnimation').style.display='block';
+    $("#userList").load("https://www.better-planet.org/messenger/loadscripts/get_users_script.php", function( response, status, xhr ) {
         if ( status == "error" ) {
             var msg = 'Loading users resulted in an error: ';
             console.log(msg + xhr.status + " " + xhr.statusText );
+        }
+        else {
+            $("#loadAnimation").css("display", "none");
         }
     });
 }
 
 // load user list into contacts tab
 function loadConversations() {        
-    $("#convoList").load("http://localhost/messenger/loadscripts/get_conversations_script.php", function( response, status, xhr ) {
+    $("#convoList").load("https://www.better-planet.org/messenger/loadscripts/get_conversations_script.php", function( response, status, xhr ) {
         if ( status == "error" ) {
             var msg = 'Loading users resulted in an error: ';
             console.log(msg + xhr.status + " " + xhr.statusText );
@@ -92,7 +98,7 @@ var recipient = x;
 
 $.ajax({
     type: 'post',
-    url: 'http://localhost/messenger/loadscripts/messageAjax.php',
+    url: 'https://www.better-planet.org/messenger/loadscripts/messageAjax.php',
     data: {
         recipient_username:recipient,
     },
@@ -100,8 +106,8 @@ $.ajax({
     console.log('chatWithUser(): Updating Recipient...');
     }
 });
-
 document.getElementById("ccTab3").click();
+callRefresh();
 }
 
 // pressing return/end submits message
@@ -119,13 +125,16 @@ function submitdata() {
 
  $.ajax({
   type: 'post',
-  url: 'http://localhost/messenger/loadscripts/messageAjax.php',
+  url: 'https://www.better-planet.org/messenger/loadscripts/messageAjax.php',
   data: {
    recipient_username:recipient,
    message_textarea:messagebody,
   },
   success: function (response) {
-    console.log('Posting message.');
+    console.log('*****************submitData(): Now posting message.');
+  },
+  error: function (responsetwo) {
+    console.log('*****************submitData(): Failed to post message.');
   }
  });
 updateMessages();
@@ -133,11 +142,12 @@ updateMessages();
 
 // ajax to get search results by user
 function searchUsers() {
- var search_term = document.getElementById("searchTerm").value;
+var search_term = document.getElementById("searchTerm").value;
+document.getElementById('loadAnimation').style.display='block';
 
  $.ajax({
   type: 'post',
-  url: 'http://localhost/messenger/loadscripts/get_users_script.php',
+  url: 'https://www.better-planet.org/messenger/loadscripts/searchUsersAjax.php',
   data: {
    searchTerm:search_term,
   },
@@ -145,10 +155,18 @@ function searchUsers() {
     console.log('Getting User search results.');
   },
   fail: function (responsetwo) {
-    console.log('Its fucked!');  
+    console.log('Its fucked!');
   }
  });
 console.log('From searchUsers() ajax, search term = ', search_term);
+document.getElementById('loadAnimation').style.display='block';
+setTimeout(loadUsers, 1000);
+}
+
+function submitSearch() {
+    $( "#userList" ).empty(); document.getElementById('loadAnimation').style.display='block';
+    searchUsers();
+    $('.search_form')[0].reset();
 }
 
 // JQUERY DYNAMIC WINDOW RESIZING FOR MESSAGE HISTORY

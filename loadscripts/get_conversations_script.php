@@ -1,33 +1,42 @@
 <?php
     //require 'includes/User_class.php';
 
+    header("Cache-Control: no-cache");
+    header("Pragma: no-cache");
+
+    header("Access-Control-Allow-Origin: *");
+
     ob_start();
     session_start();
 
+    //if(!isset($_SESSION['username']) || empty($_SESSION['username']) || (isset($_POST['username']) && $_POST['username'] != $_SESSION['username'])){
+    //    $_SESSION['username'] = isset($_POST['username']) ? $_POST['username'] : array();
+    //}
+
     $timezone = date_default_timezone_set("Europe/London");
 
-    $connection = mysqli_connect("localhost", "root", "root", "soc_net"); // connection variable
+    $connection = mysqli_connect("better-planet.org", "superBasic", "juniper1234", "soc_net");
+
     $conn_array = array();
 
     $userLoggedIn = $_SESSION['username'];
 
     $printed_convo_array = array();
-?>
+    echo "<script>console.log('get_conversatons; Session User is: " . $userLoggedIn . "');</script>";
+    echo "<script>console.log('get_conversatons; Session ID is: "  . session_id() . "');</script>";
 
-<?php
+    $conversation_list_query = mysqli_query($connection, "
+    SELECT t.id, t.body, t.added_by, t.user_to, t.date_added 
+    FROM messenger t 
+    INNER JOIN (
+        SELECT id, body, added_by, user_to, max(date_added) as MaxDate 
+        FROM messenger 
+        WHERE added_by='$userLoggedIn' OR user_to='$userLoggedIn' 
+        GROUP BY user_to
+    ) tm on t.user_to = tm.user_to and t.date_added = tm.MaxDate
+    ORDER BY id DESC
+    ");
 
-$conversation_list_query = mysqli_query($connection, "
-SELECT t.id, t.body, t.added_by, t.user_to, t.date_added 
-FROM messenger t 
-INNER JOIN (
-    SELECT id, body, added_by, user_to, max(date_added) as MaxDate 
-    FROM messenger 
-    WHERE added_by='$userLoggedIn' OR user_to='$userLoggedIn' 
-    GROUP BY user_to
-) tm on t.user_to = tm.user_to and t.date_added = tm.MaxDate
-ORDER BY id DESC
-");
-        
         $num_rows = mysqli_num_rows($conversation_list_query);      
         $w = $num_rows;     
         
@@ -38,7 +47,6 @@ ORDER BY id DESC
         mysqli_data_seek ($conversation_list_query,$x);      
         $last_row = mysqli_fetch_row($conversation_list_query);
         $i = $last_row['0']; /* index 0 is the id */
-        mysqli_free_result($result);
 
         $a = 0;
 
@@ -47,6 +55,14 @@ ORDER BY id DESC
         echo "<script>console.log('Index (ID) of last stored message for this user (j) " . $j . "');</script>";
         echo "<script>console.log('Index (ID) of first stored message for this user (i): " . $i . "');</script>";
         echo "<script>console.log('-----------------------------------------');</script>";
+
+        if ($userLoggedIn == "") {
+            echo "<p>User session needs to be refreshed. This script does not recognise a logged in user.</p><p>If you are already logged in, please be aware that there is currently a bug, initiated when you have logged in after failing to log out of a previous session. This is a critical bug and is in the process of being resolved. <a href='roadmap.php#concurrentSessions'>For more information click here</a>.</p>";
+            return;
+        }
+        elseif ($w == 0) {
+            echo "<p>You have not started any conversations yet. Please search for a user below to start a conversation.</p>";
+        }
 
         echo '<form id="update_recipient_form" action="profile.php" method="POST" onsubmit="return false;">';
         // load all users

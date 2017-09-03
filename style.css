@@ -1,28 +1,3 @@
-/*
-Theme Name: BRWNE Theme
-Theme URI: https://better-planet.org/
-Author: Brownie
-Author URI: https://better-planet.org/
-Description: Test version
-Version: 1.0
-License: 
-License URI: 
-Text Domain: brwnetheme
-Tags: one-column, two-columns, right-sidebar, flexible-header
-*/
-
-/*
-TODO - currently parallax only working when .js is inlined. (I have created and linked a parallax.js file, but for some reason it currently is not working
-TODO - need to put in scroll buttons but can't make jQuery / js work for me so far! Currently just using html go to buttons hooked to css div id's (e.g. #middle)
-*/
-
-
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -46,27 +21,42 @@ time, mark, audio, video {
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
-	display: block;
+display: block;
 }
 
 /* styling general elements*/
 body {
-	line-height: 1;
+line-height: 1;
 }
+
 ol, ul {
-	list-style: none;
+list-style-type: upper-roman;
+box-sizing: border-box;
+margin: 20px;
+color: #FFF;
 }
+
+li {
+box-sizing: border-box;
+margin-left: 20px;
+margin-right: 20px;
+box-sizing: border-box;
+color: #FFF;
+}
+
 blockquote, q {
-	quotes: none;
+quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
+content: '';
+content: none;
 }
+
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+border-collapse: collapse;
+border-spacing: 0;
 }
 
 html,body {
@@ -74,14 +64,15 @@ width: 100%;
 height: 100%;
 margin: 0 auto;
 padding: 0;
-min-width: 350px;
+min-width: 300px;
 }
 
 body {
-color: #333;
+color: #FFF;
 font-family: 'Open Sans', serif;
 line-height: 160%;
 //padding-top: 50px;
+background-color: #2c3e50;
 }
 
 .buffer {
@@ -92,19 +83,19 @@ height: 50px;
 h1 {
 font-size: 2.5em;
 line-height: normal;
-color: #333;
+color: #FFF;
 }
 
 h2 {
 font-size: 1.5em;
 line-height: normal;
-color: #333;
+color: #FFF;
 }
 
 p {
 box-sizing: border-box;
 margin: 20px;
-color: #333;
+color: #FFF;
 }
 
 /* styling tables */
@@ -129,7 +120,6 @@ width: 100%;
 padding-top: 20px;
 padding-bottom: 20px;
 box-sizing: border-box;
-margin-top: 50px; /* HACK used for ensuring the header is below the menu. For some reason its randomly stopped being needed. */ 
 border-bottom: 1px solid #000000;
 }
 
@@ -143,6 +133,42 @@ border-radius: 5px;
 display: none;
 }
 
+#loadAnimation {
+border: 10px solid #EEE;
+border-radius: 50%;
+border-top: 10px solid darkorchid;
+width: 40px;
+height: 40px;
+-webkit-animation: spin 2s linear infinite;
+animation: spin 2s linear infinite;
+margin-left: auto;
+margin-right: auto;
+z-index: 1;
+}
+
+#loadingOverlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 3;
+    cursor: pointer;
+}
+
+@-webkit-keyframes spin {
+0% { -webkit-transform: rotate(0deg); }
+100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
 
 /********************************* styling footer *******************************/
 
@@ -159,16 +185,11 @@ display: flex;
 flex-direction: row;
 justify-content: space-around;
 line-height: normal;
-min-width: 350px;
+min-width: 300px;
 }
 
 .footer p, a, h1, h2, h3, h4, h5, h, li {
-color: #DDD;
-}
-
-.footer p, a, li {
-line-height: 140%;
-font-size: 1.2em;
+color: #FFF;
 }
 
 .footer-block {
@@ -198,12 +219,12 @@ padding: 5px;
     overflow: hidden;
 	//margin: 0 auto;
 	//padding: 0;
-    position: fixed;
+    position: absolute;
     width: 100%;
     //min-height: 50px;
     top: 0;
     z-index: 2;
-    min-width: 350px;
+    min-width: 300px;
 }
 
 /* Style the links inside the navigation bar */
@@ -248,7 +269,7 @@ padding: 5px;
 
 /* The "mobile" class is added to the topNavMenu with JavaScript when the user clicks on the icon. This class makes the topNavMenu look good on small screens (display the links vertically instead of horizontally) */
 @media screen and (max-width: 768px) {
-  .topNavMenu.mobile {position: fixed;}
+  .topNavMenu.mobile { position: fixed; }
   .topNavMenu.mobile a.icon {
     position: absolute;
     right: 0;
@@ -288,8 +309,8 @@ padding: 5px;
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
 	[class="body"] { flex-direction: column; }
-	[class="footer"] { flex-direction: column; width: 100%; min-width: 350px; }
-    [class*="footer-block"] { width: 100%; min-height: 50px; min-width: 350px; }
+	[class="footer"] { flex-direction: column; width: 100%; min-width: 300px; }
+    [class*="footer-block"] { width: 100%; min-height: 50px; min-width: 300px; }
 	[class="parallax-surface-text"] { flex-direction: column; }
 	/*[id="scrollButton"] { width: 20%; height: 20%; }*/
 }
@@ -299,4 +320,733 @@ padding: 5px;
 	[class="parallax-title-text"] { font-size: 2em; }
 	[class="parallax2"] { background-image: url('http://localhost/wp-content/themes/BRWNETheme/assets/images/digital_space_universe_small.jpg'); }
 	/*[id="scrollButton"] { width: 20%; height: 20%; }*/
+}
+
+
+/* ---------------------------------------------- PROFILE PAGE ----------------------------------------------- */
+/* ------------------------------------------------ CSS TABS ------------------------------------------------- */ 
+
+.profilebox {
+    width: 100%;        
+    min-width: 300px
+    max-width: 1500px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0;
+    background-color: hotpink;
+    padding-top: 50px;
+    box-sizing: border-box;
+}
+
+.ccContent {        
+    min-width: 300px;
+    max-width: 1500px;
+    //height: 100%;
+    width: 100%;
+    background-color: bisque;
+    margin: 0 auto;
+    padding: 0;
+    padding-top: 50px;  /* for when menu is absolute position */
+    height: calc(100% - 50px); */        
+    height: -o-calc(100% - 50px); */         /* opera */
+    height: -webkit-calc(100% - 50px); */         /* google, safari */
+    height: -moz-calc(100% - 50px); */        /* firefox */
+}
+
+.tab-content section {
+    clear: both;
+    z-index: 2;
+    }
+    
+input[name="tabs"] {
+    clear: both;
+    display: none;
+}
+
+label {
+    display: block;
+    float: left;
+    width: 33.3%;
+    color: #757575;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    background-color: #f0f0f0;
+    box-sizing: border-box;
+    min-width: 99px;
+    height: 50px;
+    vertical-align: middle;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    box-sizing: border-box;
+}
+
+#tab1, #tab2, #tab3 {
+    height: 100px;
+}
+
+
+section {
+    display: none;
+    background-color:aqua;
+    height: 100%;
+}
+    
+#ccTab1:checked ~ #content1,
+#ccTab2:checked ~ #content2,
+#ccTab3:checked ~ #content3 {
+    display: block;
+}
+    
+#content1, #content2, #content3 {
+    width: 100%;
+    height: 100%;
+    top: 100px;
+    box-sizing: border-box;
+}
+    
+.ccContent [id^="ccTab"]:checked + label {
+  background: #fff;
+  //box-shadow: inset 0 3px #0CE;
+}
+
+/* --------------------------------------------- END OF CSS TABS --------------------------------------------- */
+
+/* -----------------------------------------------------|----------------------------------------------------- */
+
+.profile_wrapper {
+    //background-image: url('http://localhost/wp-content/themes/BRWNETheme/assets/images/digital_space_universe_small.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    //height: 100%;
+    //margin: 0 auto;
+    //margin-top: -50px; /* this is only needed when logged into wordpress as WP HEADER eff's up layout */
+    //top: 0px;
+    padding: 0;
+    min-width: 300px;
+    background-color: dodgerblue;
+    overflow: auto;
+}
+
+.userDetails {
+    min-height: 100%;
+    width: 100%;
+    background-color: dodgerblue;
+    color: #FFF;
+    float: left;
+    padding: 20px;
+    text-align: left;
+    min-width: 300px;
+    float: left;
+    box-sizing: border-box;
+}
+
+.profileInformation {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid #FFF;
+    margin-top: 20px;
+    background-color: darkviolet;
+}
+
+.profilePicture {
+    order 1;
+    line-height: 100%;
+}
+
+.profilePicture img {
+    width: 170px;
+    height: 100%;
+    line-height: 100%;
+}
+
+.profileText {
+    order 2;
+    padding: 20px;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+.post_form textarea {
+    width: 100%;
+    height: 70px;
+    font-family: 'Open Sans', serif;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+
+.outputLog_profile {
+    width: 100%;
+    color: green;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For desktop pcs and laptops : */
+    [class="profile_wrapper"] { overflow: hidden; }
+	[class*="userDetails"] {  }
+    [class="profileInformation"] { flex-direction: column; }
+}
+
+
+/* ------------------------------------------- CONVERSATIONS TAB STYLE ---------------------------------------------- */
+
+.conversationsWrapper {
+    min-height: 100%;
+    width: 100%;
+    background-color: dodgerblue;
+    color: #FFF;
+    float: left;
+    text-align: left;
+    min-width: 300px;
+    float: left;
+    box-sizing: border-box;
+}
+
+.userResult {
+    height: 50px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: bisque;
+    border: 1px solid #999;
+}
+
+.userResult input[type="submit"] {
+    height: 50px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: bisque;
+    border: 1px solid #999;
+}
+
+#content2 input[type="submit"] {
+    //box-shadow: none;
+}
+
+#update_recipient_form input[type="button"] {
+    height: 50px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 50px;
+    background-color: bisque;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    margin: 0px;
+    text-shadow: none;
+    box-shadow: none;
+    font-style: normal;
+    text-align: left;
+    color: black;
+}
+
+.search_form input[type="text"] {
+    height: 40px;
+    padding: 10px;
+    padding-left: 20px;
+    box-sizing: border-box;
+    width:60%;
+    max-width: 100%;
+    min-width: 100px;
+    background-color: #EEE;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    border-radius: 20px;
+    margin-left: 10px;
+    text-align: left;
+    color: #333;
+    font-style: oblique;
+}
+
+.search_form input[type="submit"] {
+    height: 40px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100px;
+    max-width: 100%;
+    min-width: 50px;
+    background-color: #EEE;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    border-radius: 50px;
+    margin-right: 10px;
+    float: right;
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+}
+
+
+#getContacts input[type="button"] {
+    height: 50px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 250px;
+    background-color: bisque;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    margin: 0px;
+    text-shadow: none;
+    box-shadow: none;
+    font-style: normal;
+    text-align: left;
+    color: black;
+}
+
+.generalHeader {
+width: 100%;
+text-transform: uppercase;
+font-variant: small-caps;
+font-weight: bold;
+font-style: italic;
+box-sizing: border-box;
+padding-left: 20px;
+margin-bottom: 10px;
+border-bottom: 1px solid white;
+}
+
+/* --------------------------------------- END OF CONVERSATIONS TAB STYLE ------------------------------------------- */
+
+/* ------------------------------------------ MESSENGER TAB STYLE ---------------------------------------------- */
+
+.messengerDetails {
+    background-color: dodgerblue;
+    color: #FFF;
+    float: left;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    height: 100vh;
+    min-width: 300px;
+    box-sizing: border-box;   
+}
+
+.messengerscript {
+flex-shrink: 1;
+flex-grow: 1;
+order: 1;
+box-sizing: border-box;
+min-height: 100px;
+height: 100%;
+}
+
+#out {
+    
+}
+
+.messenger {
+//position: relative;
+//bottom: 0;
+height: 100px;
+order: 2;
+flex-shrink: 0;
+flex-grow: 0;
+background-color: #444;
+padding-top: 10px;
+//width: 100%;
+//bottom: 0;
+//position: absolute;
+    /* these commented out ones are me wondering if I can make it a sticky footer.
+    However, it effs with the dynamic height of the messenger system */
+}
+
+.messagehistory {
+overflow-y: scroll;
+box-sizing: border-box;
+padding-left: 20px;
+padding-right: 20px;
+//padding-bottom: 40px;
+//min-height: 200px;
+//max-height: 400px;
+}
+
+.message {
+display: flex;
+flex-direction: row;
+align-items: flex-end;
+width: 100%;
+}
+
+.recipientInput {
+min-width: 100px;
+max-width: 200px;
+float: left;
+}
+
+.message_form input[type="submit"] {   
+float: right;
+width: 80px;
+height: 40px;
+padding: 8px;
+margin: 10px;
+box-sizing: border-box;
+border-radius: 10px;
+}
+
+.message_form textarea {
+min-width: 100px;
+width: 55%;
+background-color: #EEE;
+color: #444;
+height: 40px;
+padding: 8px;
+padding-left: 20px;
+margin: 10px;
+box-sizing: border-box;
+font-family: 'Open Sans', serif;
+line-height: 160%;
+border-radius: 20px;
+}
+
+.message_form input[type="text"] {
+min-width: 100px;
+max-width: 400px;
+}
+
+.conversationInfo {
+}
+
+.messageHeader {
+width: 100%;
+text-transform: uppercase;
+font-variant: small-caps;
+font-weight: bold;
+font-style: italic;
+box-sizing: border-box;
+padding: 20px;
+//margin-bottom: 20px;
+border-bottom: 1px solid white;
+}
+
+.messageProfilePic {
+order: 1;
+padding: 5px;
+border-radius: 50px;
+margin: 5px;
+}
+
+.messageProfilePic img {
+width: 20px;
+height: 20px;
+}
+
+.messageSender {
+order: 2;
+padding: 5px;
+border-radius: 5px;
+margin: 5px;
+//width: 135px;
+}
+
+.messageText {
+order: 3;
+//min-width: 300px;
+//max-width: 600px;
+//background-color: #EEE;
+background-color: deepskyblue;
+padding: 5px;
+border-radius: 5px;
+margin: 5px;
+box-shadow: 0px 0px 10px #000;
+}
+
+.messageDate {
+order: 4;
+padding: 5px;
+border-radius: 5px;
+margin: 5px;
+font-size: 12px;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For desktop pcs and laptops : */
+    [class*="conversationInfo"] { display: none; }
+    /*[class*="messagehistory"] { padding-left: 5px; padding-right: 5px; }*/
+    [class="message_form textarea"] { width: 100px; }
+}
+
+/* ------------------------------------------------ REGISTER PAGE ------------------------------------------------- */
+
+
+.wrapper {
+    //background-image: url('http://localhost/wp-content/themes/BRWNETheme/assets/images/digital_space_universe_small.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    background-color: dodgerblue;
+    min-width: 300px;
+}
+
+.innerWrapper {
+    width: auto;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* bring your own prefixes */
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    min-width: 300px;
+    background-color: dodgerblue;
+}
+
+.innerWrapper h2 {
+    color: #FFF;
+    font-size: 1.5em;
+    font-weight: bold;
+    font-variant: small-caps;
+    font-style: italic;
+    text-shadow: 0px 0px 10px #000;
+}
+
+#loginDiv, #registerDiv {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: auto;
+    //flex-shrink: 0;
+    min-width: 300px;
+}
+
+#loginTag {}
+#registerTag {}
+
+#loginDiv { order: 2; }
+#registerDiv { order: 3; }
+
+.lineBreak {
+    order: 2;
+    width: 0px;
+    height: 600px;
+    border: 2px solid #DDD;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 10px #000;
+}
+
+
+
+#loginDiv input[type="text"], #loginDiv input[type="email"], #loginDiv input[type="password"], #loginDiv input[type="button"] {
+    background: transparent;
+    border: 3px solid #DDD;
+    width: 30%;
+    max-width: 400px;
+    min-width: 250px;
+    height: 15%;
+    max-height: 50px;
+    min-height: 25px;
+    padding: 5px;
+    padding-left: 20px;
+    margin: 5px;
+    color: #FFF;
+    font-size: 1.2em;
+    //font-weight: bold;
+    //font-variant: small-caps;
+    font-style: italic;
+    text-shadow: 0px 0px 10px #000;
+    box-shadow: 0px 0px 2px #000;
+}
+
+#loginDiv input[type="submit"], #registerDiv input[type="submit"] {
+    background: transparent;
+    border: 4px solid #DDD;
+    width: 140px;
+    height: 50px;
+    padding: 5px;
+    margin: 5px;
+    color: #FFF;
+    font-size: 1.5em;
+    font-weight: bold;
+    font-variant: small-caps;
+    font-style: italic;
+    text-shadow: 0px 0px 10px #000;
+    box-shadow: 0px 0px 10px #000;
+}
+
+#registerDiv input[type="text"], #registerDiv input[type="email"], #registerDiv input[type="password"], #registerDiv input[type="button"] {
+    background: transparent;
+    border: 3px solid #DDD;
+    width: 30%;
+    max-width: 400px;
+    min-width: 250px;
+    height: 15%;
+    max-height: 50px;
+    min-height: 25px;
+    padding: 5px;
+    padding-left: 20px;
+    margin: 5px;
+    color: #FFF;
+    font-size: 1.2em;
+    //font-weight: bold;
+    //font-variant: small-caps;
+    font-style: italic;
+    text-shadow: 0px 0px 10px #000;
+    box-shadow: 0px 0px 2px #000;
+}
+
+
+
+/* STYLING FOR PLACEHOLDER TEXT CROSS BROWSER */
+#registerDiv ::-webkit-input-placeholder {
+    color: #FFF;
+}
+#loginDiv ::-webkit-input-placeholder {
+    color: #FFF;
+}
+#registerDiv :-moz-input-placeholder {
+    color: #FFF;
+}
+#loginDiv :-moz-input-placeholder {
+    color: #FFF;
+}
+#registerDiv ::-moz-input-placeholder {
+    color: #FFF;
+}
+#loginDiv ::-moz-input-placeholder {
+    color: #FFF;
+}
+#registerDiv :-ms-input-placeholder {
+    color: #FFF;
+}
+#loginDiv :-ms-input-placeholder {
+    color: #FFF;
+}
+/* END OF STYLING FOR PLACEHOLDER TEXT CROSS BROWSER */
+
+.outputLog {
+    width: 40%;
+    min-width: 250px;
+    max-width: 500px;
+    background-color: #EEE;
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    box-shadow: 0px 0px 10px #000;
+}
+
+
+@media only screen and (max-width: 1000px) {
+    /* For mobile phones: */
+    [class="lineBreak"] { width: 30%; height: 0px; min-width: 250px; }
+    [class="innerWrapper"] { flex-direction: column; align-items: center; height: auto; }
+    [id="loginDiv"] {margin-top: 20px; margin-bottom: 20px; }
+    [id="registerDiv"] {margin-top: 20px; margin-bottom: 20px; }
+    [class="innerWrapper"] { position: relative; top: 100px; transform: translate(-50%,0px); -webkit-transform: translate(-50%,0px); -ms-transform: translate(-50%,0px); height: auto;}
+    [class="wrapper"] { height: auto; }
+}
+
+
+
+
+@media only screen and (max-height: 700px) {
+    /* For mobile phones: */
+    [class="innerWrapper"] { position: relative; top: 100px; transform: translate(-50%,0px); -webkit-transform: translate(-50%,0px); -ms-transform: translate(-50%,0px); height: auto;}    
+    [id="loginDiv"] {margin-top: 20px; margin-bottom: 20px; }
+    [id="registerDiv"] {margin-top: 20px; margin-bottom: 20px; }
+    [class="wrapper"] { height: auto; }
+}
+
+
+
+/* -------------------------------------------- FONT ----------------------------------------------*/
+
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v14/K88pR3goAWT7BTt32Z01m4X0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v14/RjgO7rYTmqiVp7vzi-Q5UYX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v14/LWCjsQkB6EMdfHrEVqA1KYX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v14/xozscpT2726on7jbcb_pAoX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0370-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v14/59ZRklaO5bWGqF5A9baEEYX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v14/u-WUoqrET9fUeobQW7jkRYX0hVgzZQUfRDuZrPvH3D8.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v14/cJZKeOuBrn4kERxqtaUH3ZBw1xU1rKptJj_0jans920.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+select:focus,
+textarea {
+  font-size: 16px;
 }

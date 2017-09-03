@@ -1,15 +1,16 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+
 ob_start();
 session_start();
 
 $timezone = date_default_timezone_set("Europe/London");
 
 //ONLINE CONNECTION VARIABLE
-    // $connection = mysqli_connect("better-planet.org", "josh1234", "jabberwocky1234", "soc_net");
+    $connection = mysqli_connect("better-planet.org", "superBasic", "juniper1234", "soc_net");
 
 //OFFLINE CONNECTION VARIABLE
-$connection = mysqli_connect("localhost", "root", "root", "soc_net");
 
 $conn_array = array();
 

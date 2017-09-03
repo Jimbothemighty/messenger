@@ -228,9 +228,9 @@ section {
     padding: 10px;
     padding-left: 20px;
     box-sizing: border-box;
-    width: 60%;
+    width:60%;
     max-width: 100%;
-    min-width: 230px;
+    min-width: 150px;
     background-color: #EEE;
     border: 1px solid #999;
     box-sizing: border-box;
@@ -359,8 +359,8 @@ border-radius: 10px;
 }
 
 .message_form textarea {
-min-width: 200px;
-width: 70%;
+min-width: 150px;
+width: 65%;
 background-color: #EEE;
 color: #444;
 height: 40px;
@@ -382,18 +382,6 @@ max-width: 400px;
 }
 
 .messageHeader {
-width: 100%;
-text-transform: uppercase;
-font-variant: small-caps;
-font-weight: bold;
-font-style: italic;
-box-sizing: border-box;
-padding: 20px;
-//margin-bottom: 20px;
-border-bottom: 1px solid white;
-}
-
-.generalHeader {
 width: 100%;
 text-transform: uppercase;
 font-variant: small-caps;
