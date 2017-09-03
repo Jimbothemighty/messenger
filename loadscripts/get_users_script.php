@@ -12,7 +12,14 @@
 
 
 <?php 
-    $searchTerm = $_SESSION['searchTerm'];
+if(isset($_POST['searchTerm'])) {
+        $searchTerm = strip_tags($_POST['searchTerm']);
+        $searchTerm = str_replace(' ', '', $searchTerm);
+        $_SESSION['searchTerm'] = $searchTerm;
+        $searchTerm = $_SESSION['searchTerm'];
+}
+        $searchTerm = $_SESSION['searchTerm'];
+        echo "<script>console.log('from inside get users script:" . $searchTerm . "')</script>";
 
     $user_list_query = mysqli_query($connection, "SELECT * FROM users WHERE (username LIKE '%".$searchTerm."%') OR (first_name LIKE '%".$searchTerm."%') OR (last_name LIKE '%".$searchTerm."%')");
 

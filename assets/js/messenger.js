@@ -137,7 +137,7 @@ function searchUsers() {
 
  $.ajax({
   type: 'post',
-  url: 'http://localhost/messenger/loadscripts/searchUsersAjax.php',
+  url: 'http://localhost/messenger/loadscripts/get_users_script.php',
   data: {
    searchTerm:search_term,
   },
@@ -148,7 +148,7 @@ function searchUsers() {
     console.log('Its fucked!');  
   }
  });
-loadUsers();
+console.log('From searchUsers() ajax, search term = ', search_term);
 }
 
 // JQUERY DYNAMIC WINDOW RESIZING FOR MESSAGE HISTORY

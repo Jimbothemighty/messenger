@@ -130,9 +130,9 @@ else
         <div id="convoList">Loading...</div>
         <br>
         
-        <form class="search_form" action="/messenger/profile.php" method="POST" onsubmit="searchUsers(); $('.search_form')[0].reset(); return false;">
-            <input id="searchTerm" type="text" name="searchTerm" placeholder="Search for Users" value ="" required>
-            <input type="submit" value="Load Users" required>
+        <form class="search_form" action="/messenger/loadscripts/get_users_script.php" method="POST" onsubmit="searchUsers(); $('.search_form')[0].reset(); loadUsers(); return false;">
+            <input id="searchTerm" type="text" name="searchTerm" placeholder="Search for Users" value ="">
+            <input type="submit" value="Load Users" onclick="">
         </form>
         
         <br>
