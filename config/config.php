@@ -3,7 +3,9 @@
 header("Access-Control-Allow-Origin: *");
 
 ob_start();
-session_start();
+session_start([
+    'cookie_lifetime' => 86400,
+]);
 
 $timezone = date_default_timezone_set("Europe/London");
 

@@ -1,27 +1,13 @@
 <?php
-    //require 'includes/User_class.php';
-
-    header("Cache-Control: no-cache");
-    header("Pragma: no-cache");
-
-    header("Access-Control-Allow-Origin: *");
-
-    ob_start();
-    session_start();
-
-    $timezone = date_default_timezone_set("Europe/London");
-
-    $connection = mysqli_connect("better-planet.org", "superBasic", "juniper1234", "soc_net");
-    $conn_array = array();
-
-    $userLoggedIn = $_SESSION['username'];
+    require '../includes/User_class.php';
+    require '../config/config.php';
 
     echo '<script>console.log("Get search results script is running...");</script>';
 
         $searchTerm = $_SESSION['searchTerm'];
         echo "<script>console.log('from inside get_users_script():" . $_SESSION['searchTerm'] . "')</script>";
         echo "<script>console.log('from inside get_users_script():" . $searchTerm . "')</script>";
-        if($searchTerm == "") { echo "SEARCH TERM IS EMPTY."; return; }
+        if($searchTerm == "") { echo "Sorry there has been an error!"; return; }
 
         $user_list_query = mysqli_query($connection, "SELECT * FROM users WHERE (username LIKE '%".$searchTerm."%') OR (first_name LIKE '%".$searchTerm."%') OR (last_name LIKE '%".$searchTerm."%') ORDER BY id ASC");
 
@@ -66,19 +52,16 @@
             if($num_rows < 1) { echo "<P>Sorry, no results matched your query.</P>"; return; }
                 if ($user_array['id'] != NULL)  {
                     if($user_array['username'] != $userLoggedIn) {
+                        $userCl = new User($connection, $userSelected);
                         ?>
-                            <script>
-                            // TODO - move script to messenger.js
-                            // TODO - this is a bit hacky. There's something wrong with the php variable I'm submitting as a string. For some reason it has a space " " at the start. But if I delete it, I get an error. Currently I'm deleting the space in php in messageAjax.php, which is where this is submitting to. 
-                            var inputElement = document.createElement('input');
-                            inputElement.type = "button";
-                            inputElement.value = '\ <?php echo  $fullName . ' (Username: ' . $userSelected . ')'; ?>';
-                            inputElement.addEventListener('click', function(){
-                                chatWithUser('\ <?php echo $userSelected; ?>');
-                            });
+                            <div id="results_button" onclick="chatWithUser('\ <?php echo $userSelected; ?>')">
+                    
+                                <div id="results_image" style="background-image: url('<?php echo $userCl->getUserProfilePic(); ?>')"></div>
 
-                            document.getElementById("userSearchResults").appendChild(inputElement);
-                            </script>
+                                <?php
+                                echo  $fullName . '<br>Username: ' . $userSelected  
+                                ?>    
+                            </div>
                         <?php
                     }
                 }
@@ -89,5 +72,6 @@
             $a++;
         }
         echo '</form>';
+        echo '<br>';
 ?>
 

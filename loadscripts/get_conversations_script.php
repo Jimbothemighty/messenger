@@ -1,29 +1,8 @@
 <?php
-    //require 'includes/User_class.php';
-
-    header("Cache-Control: no-cache");
-    header("Pragma: no-cache");
-
-    header("Access-Control-Allow-Origin: *");
-
-    ob_start();
-    session_start();
-
-    //if(!isset($_SESSION['username']) || empty($_SESSION['username']) || (isset($_POST['username']) && $_POST['username'] != $_SESSION['username'])){
-    //    $_SESSION['username'] = isset($_POST['username']) ? $_POST['username'] : array();
-    //}
-
-    $timezone = date_default_timezone_set("Europe/London");
-
-    $connection = mysqli_connect("better-planet.org", "superBasic", "juniper1234", "soc_net");
-
-    $conn_array = array();
-
-    $userLoggedIn = $_SESSION['username'];
+    require '../includes/User_class.php';
+    require '../config/config.php';
 
     $printed_convo_array = array();
-    echo "<script>console.log('get_conversatons; Session User is: " . $userLoggedIn . "');</script>";
-    echo "<script>console.log('get_conversatons; Session ID is: "  . session_id() . "');</script>";
 
     $conversation_list_query = mysqli_query($connection, "
     SELECT t.id, t.body, t.added_by, t.user_to, t.date_added 
@@ -32,8 +11,8 @@
         SELECT id, body, added_by, user_to, max(date_added) as MaxDate 
         FROM messenger 
         WHERE added_by='$userLoggedIn' OR user_to='$userLoggedIn' 
-        GROUP BY user_to
-    ) tm on t.user_to = tm.user_to and t.date_added = tm.MaxDate
+        GROUP BY added_by, user_to
+    ) tm on (t.user_to = tm.user_to OR t.added_by = tm.added_by) and t.date_added = tm.MaxDate
     ORDER BY id DESC
     ");
 
@@ -57,7 +36,7 @@
         echo "<script>console.log('-----------------------------------------');</script>";
 
         if ($userLoggedIn == "") {
-            echo "<p>User session needs to be refreshed. This script does not recognise a logged in user.</p><p>If you are already logged in, please be aware that there is currently a bug, initiated when you have logged in after failing to log out of a previous session. This is a critical bug and is in the process of being resolved. <a href='roadmap.php#concurrentSessions'>For more information click here</a>.</p>";
+            echo "<p>User session needs to be refreshed. This script does not recognise a logged in user.</p>";
             return;
         }
         elseif ($w == 0) {
@@ -65,8 +44,8 @@
         }
 
         echo '<form id="update_recipient_form" action="profile.php" method="POST" onsubmit="return false;">';
-        // load all users
-        for($i; $i <= $j; $i++) {
+        // load all conversations
+        for($i = 0; $i <= $w; $i++) {
             mysqli_data_seek ($conversation_list_query,$a);      
             $conversation_array = mysqli_fetch_assoc($conversation_list_query);
             $whatever_p_is = mysqli_fetch_row($conversation_list_query);
@@ -89,38 +68,48 @@
             elseif (($timeNow - $dateMessageSent) > 365) { $when = ' (Over a year ago.)'; }
             
             $messageBodyShort = $conversation_array['body'];
-            $messageBodyShort = (strlen($messageBodyShort) > 50) ? substr($messageBodyShort,0,47).'...' : $messageBodyShort;
+            $messageBodyShort = (strlen($messageBodyShort) > 49) ? substr($messageBodyShort,0,46).'...' : $messageBodyShort;
+            
+            
             
             if($userLoggedIn == $conversation_array['user_to']) {
                 $conversationSelected = $conversation_array['added_by'];
-                $sentBy = 'Last message sent by ' . $conversation_array['added_by'] . ': ';
+                //$sentBy = 'Last message sent by ' . $conversation_array['added_by'] . ': ';
             }
             else {
                 $conversationSelected = $conversation_array['user_to'];
-                $sentBy = 'Last message sent by me: ';
+                //$sentBy = 'Last message sent by me: ';
             }
             
+            $id = $conversation_array["id"];
+            
+            echo "<script>console.log('$conversationSelected');</script>";
+            if(!($id == "")) { echo "<script>console.log('ID of last message sent: $id');</script>"; }
             if (!(in_array($conversationSelected, $printed_convo_array))) {
 
                 if ($conversation_array['id'] != NULL)  {
+                /* create new instance of User class per row */
+                $userC = new User($connection, $conversationSelected);
+                
+                if($userLoggedIn == $conversation_array['user_to']) {
+                    $sentBy = 'Last message sent by ' . $userC->getFirstName() . ': ';
+                }
+                else {
+                    $sentBy = 'Last message sent by me: ';
+                }    
+                
                 ?>
-                    <script>
-                    // TODO - move script to messenger.js
-                    // TODO - this is a bit hacky. There's something wrong with the php variable I'm submitting as a string. For some reason it has a space " " at the start. But if I delete it, I get an error. Currently I'm deleting the space in php in messageAjax.php, which is where this is submitting to. 
-                    var inputElement = document.createElement('input');
-                    inputElement.type = "button";
-                    inputElement.value = 
-                    ' <?php
-                    echo $conversationSelected;
-                    echo ' | ' . $sentBy . $messageBodyShort  . $when;    
-                    ?>';
-                    inputElement.addEventListener('click', function(){
-                        chatWithUser('\ <?php echo $conversationSelected; ?>');
-                    });
-
-                    document.getElementById("update_recipient_form").appendChild(inputElement);
-                    </script>
-
+                    <div id="results_button" onclick="chatWithUser('\ <?php echo $conversationSelected; ?>')">
+                        <div id="results_image"> 
+                            <div id="results_image" style="background-image: url('<?php echo $userC->getUserProfilePic(); ?>')"></div>
+                        </div>
+                        <div id="results_text">
+                            <?php
+                            echo $userC->getFirstAndLastName();
+                            echo '<p>' . $sentBy . $messageBodyShort  . $when . '</p>';
+                            ?>
+                        </div>
+                    </div>
                 <?php
                 array_push($printed_convo_array, $conversationSelected);
                 }
@@ -133,27 +122,3 @@
         }
         echo '</form>';
 ?>
-
-<script>
-    /*
-// TODO - move this to header when fully ready
-function chatWithUser(x) {
-var recipient = x;
-
-$.ajax({
-    type: 'post',
-    url: 'http://localhost/messenger/loadscripts/messageAjax.php',
-    data: {
-        recipient_username:recipient,
-    },
-    success: function (response) {
-    console.log('chatWithUser(): Updating Recipient...');
-    //console.log('New recipient is: ', recipient);
-    }
-});
-
-document.getElementById("ccTab3").click();
-callRefresh();
-}
-*/
-</script>

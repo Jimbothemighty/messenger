@@ -1,12 +1,11 @@
 <?php
-ob_start();
-session_start();
+require 'config/config.php';
 
 if($_SESSION['username']) {
-    header("Location: /messenger/profile.php");
+    header("Location: profile.php");
     }
 else {
-    header("Location: /messenger/register.php");
+    header("Location: register.php");
 }
 
 ?>

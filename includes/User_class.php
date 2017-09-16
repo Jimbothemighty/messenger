@@ -13,6 +13,10 @@ class User {
         return $this->user['username'];
     }
     
+    public function getUserProfilePic() {
+        return $this->user['profile_pic'];
+    }
+    
     public function getNumPosts() {
         $username = $this->user['username'];
         $query = mysqli_query($this->connection, "SELECT * FROM users WHERE username='$username'");
@@ -32,4 +36,9 @@ class User {
         //$row = mysqli_fetch_assoc($query);
         return $this->user['first_name'] . " " . $this->user['last_name'];
     }
+    
+        public function getFirstName() {
+        return $this->user['first_name'];
+    }
+    
 }

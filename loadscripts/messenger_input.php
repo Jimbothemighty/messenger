@@ -1,13 +1,5 @@
 <?php
-
-    header("Cache-Control: no-cache");
-    header("Pragma: no-cache");
-
-    header("Access-Control-Allow-Origin: *");
-
-    ob_start();
-    session_start();
-
+require '../config/config.php';
 ?>
 
                 <form class="message_form" action="/profile" method="POST" onsubmit="submitdata(); $('.message_form')[0].reset(); return false;"> 
@@ -20,7 +12,7 @@
                         </div>
                     </div><br>
                     <div>
-                    <textarea type="text" class="message_textarea" id="message_body" name="message_textarea" placeholder="Send a message." style="float: left;" required></textarea>
+                    <input type="text" class="message_textarea" id="message_body" name="message_textarea" placeholder="Send a message." style="float: left;" required>
                     <input id="submit_message" type="submit" name="message_button" value="Send">
                     </div>
                 </form>

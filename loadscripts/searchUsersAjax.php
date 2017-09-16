@@ -1,11 +1,5 @@
 <?php
-ob_start();
-session_start();  
-
-header("Cache-Control: no-cache");
-header("Pragma: no-cache");
-
-header("Access-Control-Allow-Origin: *");
+require '../config/config.php';
 
 if(isset($_POST['searchTerm'])) {
         $searchTerm = strip_tags($_POST['searchTerm']);

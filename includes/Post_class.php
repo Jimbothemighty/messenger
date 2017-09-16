@@ -11,7 +11,6 @@ class Post {
     public function submitPost($body, $user_to) {
         $body = strip_tags($body);
         $body = mysqli_real_escape_string($this->connection, $body);
-        //$check_empty = preg_replace('/\s+', '', $body); // Deletes all spaces
         
         echo "<script>console.log('**submitPost function running');</script>";
         echo "<script>console.log('Body text is: " . $body . "');</script>";

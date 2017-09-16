@@ -7,6 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Messenger Web Application">
     <meta name="author" content="">
+    <meta name="theme-color" content="#333333">
 
     <title>Messenger Web Application</title>
 

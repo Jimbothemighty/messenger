@@ -1,16 +1,11 @@
 <?php
-
-header("Cache-Control: no-cache");
-header("Pragma: no-cache");
-
-header("Access-Control-Allow-Origin: *");
-
-ob_start();
-session_start();  
+require '../config/config.php';
 
 if(isset($_POST['recipient_username'])) {
         
         $body = strip_tags($_POST['message_textarea']);
+        $body = mysqli_real_escape_string($connection, $body);
+    
         $user_to = strip_tags($_POST['recipient_username']);
         $user_to = str_replace(' ', '', $user_to);
         $_SESSION['recipient_username'] = $user_to;
@@ -32,7 +27,6 @@ if(isset($_POST['recipient_username'])) {
         $added_by = $_SESSION['username'];
         $user_messages_id = 0;
 
-        $connection = mysqli_connect("better-planet.org", "superBasic", "juniper1234", "soc_net");
         $query_messages = mysqli_query($connection, "INSERT INTO messenger VALUES (NULL, '$body', '$added_by', '$user_to', '$date_added', 'no', 'no', '0', '$user_messages_id' )");   
         }
 }

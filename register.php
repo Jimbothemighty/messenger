@@ -5,6 +5,10 @@ require 'includes/reg_handler.php';
 require 'includes/login_handler.php';
 include 'header.php';
 
+if($_SESSION['username']) {
+    header("Location: /messenger/profile.php");
+}
+
 ?>
 
 <div class="wrapper">

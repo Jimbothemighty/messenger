@@ -1,12 +1,6 @@
 <?php
 
-header("Cache-Control: no-cache");
-header("Pragma: no-cache");
-
-header("Access-Control-Allow-Origin: *");
-
-ob_start();
-session_start();
+require '../config/config.php';
 
 $recipient = $_SESSION['recipient_username'];
 $userLoggedIn = $_SESSION['username'];

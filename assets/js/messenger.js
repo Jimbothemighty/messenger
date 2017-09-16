@@ -20,7 +20,7 @@ function stopRefresh() {
 
 // updates chat message history regularly
 function updateMessages() {        
-    $(".messagehistory").load("https://www.better-planet.org/messenger/loadscripts/messenger_script.php", function( response, status, xhr ) {
+    $(".messagehistory").load("loadscripts/messenger_script.php", function( response, status, xhr ) {
         if ( status == "error" ) {
             var msg = 'Loading messenges resulted in an error: ';
              console.log(msg + xhr.status + " " + xhr.statusText );
@@ -44,7 +44,7 @@ function updateMessages() {
 
 // updates chat header to display current user and recipient
 function updateMessageHeader() {        
-    $(".messageHeader").load("https://www.better-planet.org/messenger/loadscripts/messenger_header.php", function( response, status, xhr ) {
+    $(".messageHeader").load("loadscripts/messenger_header.php", function( response, status, xhr ) {
         if ( status == "error" ) {
             var msg = 'Loading message header resulted in an error: ';
              console.log(msg + xhr.status + " " + xhr.statusText );
@@ -57,7 +57,7 @@ function updateMessageHeader() {
 
 // updates chat message writing box
 function updateMessageInput() {        
-    $(".messenger").load("https://www.better-planet.org/messenger/loadscripts/messenger_input.php", function( response, status, xhr ) {
+    $(".messenger").load("loadscripts/messenger_input.php", function( response, status, xhr ) {
         if ( status == "error" ) {
             var msg = 'Loading message header resulted in an error: ';
              console.log(msg + xhr.status + " " + xhr.statusText );
@@ -70,21 +70,21 @@ function updateMessageInput() {
 
 // load user list into contacts tab
 function loadUsers() {
-    document.getElementById('loadAnimation').style.display='block';
-    $("#userList").load("https://www.better-planet.org/messenger/loadscripts/get_users_script.php", function( response, status, xhr ) {
+    document.getElementById('searchLoadAnimation').style.display='block';
+    $("#userList").load("loadscripts/get_users_script.php", function( response, status, xhr ) {
         if ( status == "error" ) {
             var msg = 'Loading users resulted in an error: ';
             console.log(msg + xhr.status + " " + xhr.statusText );
         }
         else {
-            $("#loadAnimation").css("display", "none");
+            $("#searchLoadAnimation").css("display", "none");
         }
     });
 }
 
 // load user list into contacts tab
 function loadConversations() {        
-    $("#convoList").load("https://www.better-planet.org/messenger/loadscripts/get_conversations_script.php", function( response, status, xhr ) {
+    $("#convoList").load("loadscripts/get_conversations_script.php", function( response, status, xhr ) {
         if ( status == "error" ) {
             var msg = 'Loading users resulted in an error: ';
             console.log(msg + xhr.status + " " + xhr.statusText );
@@ -98,7 +98,7 @@ var recipient = x;
 
 $.ajax({
     type: 'post',
-    url: 'https://www.better-planet.org/messenger/loadscripts/messageAjax.php',
+    url: 'loadscripts/messageAjax.php',
     data: {
         recipient_username:recipient,
     },
@@ -111,12 +111,13 @@ callRefresh();
 }
 
 // pressing return/end submits message
-$('.message_form').keydown(function(e) {
-var keypress = e.which;
-if (keypress == 13) {
+function sendForm(e) {
+//$('.message_textarea').keydown(function(e) {
+//var keypress = e.which;
+if (e.keyCode == 13) {
 $('.message_form').submit();
 }
-});
+};
 
 // ajax to submit new messages
 function submitdata() {
@@ -125,7 +126,7 @@ function submitdata() {
 
  $.ajax({
   type: 'post',
-  url: 'https://www.better-planet.org/messenger/loadscripts/messageAjax.php',
+  url: 'loadscripts/messageAjax.php',
   data: {
    recipient_username:recipient,
    message_textarea:messagebody,
@@ -143,11 +144,11 @@ updateMessages();
 // ajax to get search results by user
 function searchUsers() {
 var search_term = document.getElementById("searchTerm").value;
-document.getElementById('loadAnimation').style.display='block';
+document.getElementById('searchLoadAnimation').style.display='block';
 
  $.ajax({
   type: 'post',
-  url: 'https://www.better-planet.org/messenger/loadscripts/searchUsersAjax.php',
+  url: 'loadscripts/searchUsersAjax.php',
   data: {
    searchTerm:search_term,
   },
@@ -159,12 +160,13 @@ document.getElementById('loadAnimation').style.display='block';
   }
  });
 console.log('From searchUsers() ajax, search term = ', search_term);
-document.getElementById('loadAnimation').style.display='block';
+document.getElementById('searchLoadAnimation').style.display='block';
 setTimeout(loadUsers, 1000);
 }
 
 function submitSearch() {
-    $( "#userList" ).empty(); document.getElementById('loadAnimation').style.display='block';
+    $( "#userList" ).empty();
+    document.getElementById('searchLoadAnimation').style.display='block';
     searchUsers();
     $('.search_form')[0].reset();
 }
